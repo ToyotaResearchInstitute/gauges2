@@ -1,0 +1,12 @@
+<library path="src">
+  <class name="Gauges2" type="rqt_gauges_2.gauges_2.Gauges2" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      A Visualization tool to keep track of the values of sensors
+    </description>
+    <qtgui>
+      <label>Visualization</label>
+      <icon type="theme">applications-other</icon>
+      <statustip>Visualization tool.</statustip>
+    </qtgui>
+  </class>
+</library>
