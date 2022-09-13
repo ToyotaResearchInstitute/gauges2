@@ -1,15 +1,12 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>rqt_gauges_2</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>Visualization plugin for several sensors.</description>
 
   <maintainer email="eloy.briceno@ekumenlabs.com">Eloy Briceno</maintainer>
 
-  <!-- One license tag required, multiple allowed, one license per tag -->
-  <!-- Commonly used license strings: -->
-  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
+  <license file="LICENSE">BSD Clause 3</license>
 
   <exec_depend>ament_index_python</exec_depend>
   <exec_depend>qt_gui</exec_depend>

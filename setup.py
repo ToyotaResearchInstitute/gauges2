@@ -4,7 +4,7 @@ package_name = 'rqt_gauges_2'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='0.0.1',
     packages=[package_name],
     package_dir={'': 'src'},
     data_files=[
