@@ -16,14 +16,12 @@ setup(
         ('share/' + package_name, ['plugin.xml']),
     ],
     install_requires=['setuptools'],
-    zip_safe=True,
     maintainer='Eloy Briceno',
     maintainer_email='eloy.briceno@ekumenlabs.com',
     description=(
         'rqt_gauges_2 is a Python GUI plugin providing a visualization tool for several sensors.'
     ),
     license='BSD Clause 3',
-    tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'rqt_gauges_2 = ' + package_name + '.main:main',

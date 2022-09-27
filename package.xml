@@ -7,7 +7,7 @@
   
   <maintainer email="eloy.briceno@ekumenlabs.com">Eloy Bricneo</maintainer>
 
-  <license>BSD Clause 3</license>
+  <license file="LICENSE">BSD Clause 3</license>
 
   <exec_depend>ament_index_python</exec_depend>
   <exec_depend>qt_gui</exec_depend>
