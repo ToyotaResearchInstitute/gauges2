@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>rqt_gauges_2</name>
   <version>0.0.1</version>
   <description>Visualization plugin for several sensors.</description>
-
-  <maintainer email="eloy.briceno@ekumenlabs.com">Eloy Briceno</maintainer>
+  
+  <maintainer email="eloy.briceno@ekumenlabs.com">Eloy Bricneo</maintainer>
 
   <license file="LICENSE">BSD Clause 3</license>
 
@@ -15,9 +16,9 @@
   <exec_depend>rqt_gui</exec_depend>
   <exec_depend>rqt_gui_py</exec_depend>
 
-  <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <rqt_gui plugin="${prefix}/plugin.xml"/>
+    <architecture_independent/>
     <build_type>ament_python</build_type>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
   </export>
 </package>
