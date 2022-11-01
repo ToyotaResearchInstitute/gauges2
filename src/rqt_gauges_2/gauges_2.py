@@ -1,6 +1,7 @@
-from python_qt_binding.QtWidgets import QVBoxLayout, QWidget
 from qt_gui.plugin import Plugin
-from qt_gui_py_common.simple_settings_dialog import SimpleSettingsDialog
+from PyQt5 import QtCore, QtGui, QtWidgets
+from .speedometer_widget import *
+from std_msgs.msg import Int16
 
 class Gauges2(Plugin):
 
@@ -9,18 +10,14 @@ class Gauges2(Plugin):
         self.setObjectName('Gauges2')
 
         self._context = context
-        self._console_widget = None
-        self._widget = QWidget()
-        self._widget.setLayout(QVBoxLayout())
-        self._widget.layout().setContentsMargins(0, 0, 0, 0)
-        if context.serial_number() > 1:
-            self._widget.setWindowTitle(
-                self._widget.windowTitle() + (' (%d)' % context.serial_number()))
-        self._context.add_widget(self._widget)
+        self._node = context.node
+        self.speedometer_subscriber = self._node.create_subscription(
+            Int16,
+            '/test_topic',
+            self.speedometer_callback,
+            10)
+        self._widget = SpeedometerWidget()
+        context.add_widget(self._widget)
 
-    def shutdown_console_widget(self):
-        if self._console_widget is not None and hasattr(self._console_widget, 'shutdown'):
-            self._console_widget.shutdown()
-
-    def shutdown_plugin(self):
-        self.shutdown_console_widget()
+    def speedometer_callback(self, msg):
+        self._widget.updateValue(msg.data)
