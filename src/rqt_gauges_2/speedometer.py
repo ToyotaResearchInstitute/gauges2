@@ -3,11 +3,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from .speedometer_widget import *
 from std_msgs.msg import Int16
 
-class Gauges2(Plugin):
+class Speedometer(Plugin):
 
     def __init__(self, context):
-        super(Gauges2, self).__init__(context)
-        self.setObjectName('Gauges2')
+        super(Speedometer, self).__init__(context)
+        self.setObjectName('Speedometer')
 
         self._context = context
         self._node = context.node
@@ -16,8 +16,8 @@ class Gauges2(Plugin):
             '/test_topic',
             self.speedometer_callback,
             10)
-        self._widget = SpeedometerWidget()
+        self._widget = SpeedometerWidget(self._node)
         context.add_widget(self._widget)
 
     def speedometer_callback(self, msg):
-        self._widget.updateValue(msg.data)
+        self._widget.speedometer_gauge.updateValue(msg.data)

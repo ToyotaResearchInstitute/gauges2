@@ -12,6 +12,8 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name + '/resource',
             ['resource/gauges_2.ui']),
+        ('share/' + package_name + '/resource',
+            ['resource/speedometer.ui']),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name, ['plugin.xml']),
     ],
