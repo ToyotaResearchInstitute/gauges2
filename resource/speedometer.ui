@@ -101,7 +101,7 @@ p, li { white-space: pre-wrap; }
     <string>Max Value:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="subscription_button">
+  <widget class="QPushButton" name="subscribe_button">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -130,16 +130,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Topic:</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="topic_to_subscribe">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>10</y>
-     <width>241</width>
-     <height>31</height>
-    </rect>
    </property>
   </widget>
   <widget class="SpeedometerGauge" name="speedometer_gauge" native="true">
@@ -189,6 +179,16 @@ p, li { white-space: pre-wrap; }
      <string>Kmh</string>
     </property>
    </item>
+  </widget>
+  <widget class="QLineEdit" name="topic_to_subscribe">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>10</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <customwidgets>

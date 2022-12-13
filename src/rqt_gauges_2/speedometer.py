@@ -1,7 +1,15 @@
 from qt_gui.plugin import Plugin
-from PyQt5 import QtCore, QtGui, QtWidgets
 from .speedometer_widget import *
-from std_msgs.msg import Int16
+
+def is_number_type(type):
+    number_types = [
+        'int8', 'uint8',
+        'int16', 'uint16',
+        'int32', 'uint32',
+        'int64', 'uint64',
+        'float', 'float32', 'float64',
+        'double', 'long double']
+    return type in number_types
 
 class Speedometer(Plugin):
 
@@ -11,13 +19,8 @@ class Speedometer(Plugin):
 
         self._context = context
         self._node = context.node
-        self.speedometer_subscriber = self._node.create_subscription(
-            Int16,
-            '/test_topic',
-            self.speedometer_callback,
-            10)
+
         self._widget = SpeedometerWidget(self._node)
         context.add_widget(self._widget)
 
-    def speedometer_callback(self, msg):
-        self._widget.speedometer_gauge.updateValue(msg.data)
+    
