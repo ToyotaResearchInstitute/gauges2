@@ -179,6 +179,11 @@ p, li { white-space: pre-wrap; }
      <string>Kmh</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string/>
+    </property>
+   </item>
   </widget>
   <widget class="QLineEdit" name="topic_to_subscribe">
    <property name="geometry">

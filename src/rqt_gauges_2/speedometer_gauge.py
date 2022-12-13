@@ -55,7 +55,7 @@ class SpeedometerGauge(QWidget):
         self.value_fontsize = self.initial_value_fontsize
         self.text_radius_factor = 0.5
 
-        self.units = "Mph"
+        self.units = ""
 
         # Gauge Attributes flags
         self.enableBarGraph = True
