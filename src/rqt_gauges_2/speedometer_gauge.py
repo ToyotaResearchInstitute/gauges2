@@ -70,12 +70,8 @@ class SpeedometerGauge(QWidget):
         self.gauge_color_outer_radius_factor = 1
         self.gauge_color_inner_radius_factor = 0.9
 
-        # QWidget.setMouseTracking(self, True)
-
         self.update()
-
         self.setGaugeTheme()
-
         self.rescale_method()
 
     def setGaugeTheme(self, ):
