@@ -2,7 +2,7 @@ import os
 
 from ament_index_python.resources import get_resource
 from python_qt_binding import loadUi
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLineEdit
 from PyQt5.QtCore import Qt, pyqtSlot
 from rosidl_runtime_py.utilities import get_message
 from rqt_py_common.topic_completer import TopicCompleter
@@ -59,7 +59,7 @@ def generate_field_evals(fields):
     return evals
 
 class SpeedometerWidget(QWidget):
-    def __init__(self, node, initial_topics=None):
+    def __init__(self, node):
         super(SpeedometerWidget, self).__init__()
         self.setObjectName('Speedometer_widget')
 
@@ -70,8 +70,10 @@ class SpeedometerWidget(QWidget):
         ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2', 'resource', 'speedometer.ui')
         loadUi(ui_file, self)
 
+        self.topic_to_subscribe.setNode(self.node)
+
         self._topic_completer = TopicCompleter(self.topic_to_subscribe)
-        self._topic_completer.update_topics(node)
+        self._topic_completer.update_topics(self.node)
         self.topic_to_subscribe.setCompleter(self._topic_completer)
 
         # Objects Properties

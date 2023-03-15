@@ -190,7 +190,7 @@ p, li { white-space: pre-wrap; }
     </property>
    </item>
   </widget>
-  <widget class="QLineEdit" name="topic_to_subscribe">
+  <widget class="TopicQLineEdit" name="topic_to_subscribe">
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -207,6 +207,11 @@ p, li { white-space: pre-wrap; }
    <extends>QWidget</extends>
    <header>rqt_gauges_2.speedometer_gauge.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TopicQLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>rqt_gauges_2.topic_q_line_edit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
