@@ -2,7 +2,7 @@ import os
 
 from ament_index_python.resources import get_resource
 from python_qt_binding import loadUi
-from PyQt5.QtWidgets import QWidget, QLineEdit
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, pyqtSlot
 from rosidl_runtime_py.utilities import get_message
 from rqt_py_common.topic_completer import TopicCompleter
