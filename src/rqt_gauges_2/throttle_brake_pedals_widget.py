@@ -57,78 +57,88 @@ def generate_field_evals(fields):
             evals.append(_field_eval(f))
     return evals
 
-class SpeedometerWidget(QWidget):
+class ThrottleBrakePedalsWidget(QWidget):
     def __init__(self, node):
-        super(SpeedometerWidget, self).__init__()
-        self.setObjectName('Speedometer_widget')
+        super(ThrottleBrakePedalsWidget, self).__init__()
+        self.setObjectName('ThrottleBrakePedals_widget')
 
         self.node = node
-        self.sub = None
+        self.throttle_sub = None
+        self.brake_sub = None
 
         _, package_path = get_resource('packages', 'rqt_gauges_2')
-        ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2', 'resource', 'speedometer.ui')
+        ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2', 'resource', 'throttle_brake_pedals.ui')
         loadUi(ui_file, self)
 
-        self.topic_to_subscribe.setNode(self.node)
+        # Throttle Topic Completer
+        self.throttle_topic_to_subscribe.setNode(self.node)
+        self._throttle_topic_completer = TopicCompleter(self.throttle_topic_to_subscribe)
+        self._throttle_topic_completer.update_topics(self.node)
+        self.throttle_topic_to_subscribe.setCompleter(self._throttle_topic_completer)
 
-        self._topic_completer = TopicCompleter(self.topic_to_subscribe)
-        self._topic_completer.update_topics(self.node)
-        self.topic_to_subscribe.setCompleter(self._topic_completer)
-
-        # Objects Properties
-        self.max_value.setAlignment(Qt.AlignCenter)
-        self.min_value.setAlignment(Qt.AlignCenter)
-
-        self.max_value.setPlaceholderText(str(self.speedometer_gauge.maxValue))
-        self.min_value.setPlaceholderText(str(self.speedometer_gauge.minValue))
+        # Brake Topic Completer
+        self.brake_topic_to_subscribe.setNode(self.node)
+        self._brake_topic_completer = TopicCompleter(self.brake_topic_to_subscribe)
+        self._brake_topic_completer.update_topics(self.node)
+        self.brake_topic_to_subscribe.setCompleter(self._brake_topic_completer)
 
         # Signals Connection
-        self.min_value.textChanged.connect(self.updateMinValue)
-        self.max_value.textChanged.connect(self.updateMaxValue)
-        self.units.currentTextChanged.connect(self.updateUnits)
-        self.subscribe_button.pressed.connect(self.updateSubscription)
+        self.throttle_subscribe.pressed.connect(self.throttleUpdateSubscription)
+        self.brake_subscribe.pressed.connect(self.brakeUpdateSubscription)
 
     @pyqtSlot()
-    def updateMinValue(self):
-        new_min_value = self.min_value.toPlainText()
-        if new_min_value.isnumeric():
-            self.speedometer_gauge.setMinValue(int(new_min_value))
-        else:
-            self.speedometer_gauge.setMinValue(0)
-
-    @pyqtSlot()
-    def updateMaxValue(self):
-        new_max_value = self.max_value.toPlainText()
-        if new_max_value.isnumeric():
-            self.speedometer_gauge.setMaxValue(int(new_max_value))
-        else:
-            self.speedometer_gauge.setMaxValue(180)
-
-    @pyqtSlot(str)
-    def updateUnits(self, new_units):
-        self.speedometer_gauge.units = new_units
-        self.speedometer_gauge.update()
-
-    @pyqtSlot()
-    def updateSubscription(self):
-        if self.node.destroy_subscription(self.sub):
+    def throttleUpdateSubscription(self):
+        if self.node.destroy_subscription(self.throttle_sub):
             print("Previous subscription deleted")
         else:
             print("There was no previous subscription")
-        topic_path = self.topic_to_subscribe.text()
+        topic_path = self.throttle_topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
         self.field_evals = generate_field_evals(fields)
         if topic_type is not None:
             print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
             data_class = get_message(topic_type)
-            self.sub = self.node.create_subscription(
+            self.throttle_sub = self.node.create_subscription(
                 data_class,
                 topic_name,
-                self.speedometer_callback,
+                self.throttle_callback,
                 10)
 
-    def speedometer_callback(self, msg):
+    @pyqtSlot()
+    def brakeUpdateSubscription(self):
+        if self.node.destroy_subscription(self.brake_sub):
+            print("Previous subscription deleted")
+        else:
+            print("There was no previous subscription")
+        topic_path = self.brake_topic_to_subscribe.text()
+        topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
+        self.field_evals = generate_field_evals(fields)
+        if topic_type is not None:
+            print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
+            data_class = get_message(topic_type)
+            self.brake_sub = self.node.create_subscription(
+                data_class,
+                topic_name,
+                self.brake_callback,
+                10)
+
+    def throttle_callback(self, msg):
         value = msg
         for f in self.field_evals:
             value = f(value)
-        self.speedometer_gauge.updateValue(float(value))
+        if value <= 1 and value >= 0:
+            self.throttle_pedal.setValue(int(value*100))
+            self.throttle_label.setText(str(value))
+        else:
+            print("The throttle pedal value is not between 0 and 1")
+
+    def brake_callback(self, msg):
+        value = msg
+        for f in self.field_evals:
+            value = f(value)
+        if value <= 1 and value >= 0:
+            self.brake_pedal.updateValue(int(value*100))
+            self.brake_label.setText(str(value))
+        else:
+            print("The brake pedal value is not between 0 and 1")
+
