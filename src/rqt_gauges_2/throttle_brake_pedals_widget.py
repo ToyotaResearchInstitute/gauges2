@@ -137,7 +137,7 @@ class ThrottleBrakePedalsWidget(QWidget):
         for f in self.field_evals:
             value = f(value)
         if value <= 1 and value >= 0:
-            self.brake_pedal.updateValue(int(value*100))
+            self.brake_pedal.setValue(int(value*100))
             self.brake_label.setText(str(value))
         else:
             print("The brake pedal value is not between 0 and 1")
