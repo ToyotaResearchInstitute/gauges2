@@ -14,4 +14,19 @@
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>
   </class>
+  <class name="SteeringWheel" type="rqt_gauges_2.steering_wheel.SteeringWheel" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      A Visualization tool to keep track of the values of sensors
+    </description>
+    <qtgui>
+      <group>
+        <label>Visualization</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to visualization.</statustip>
+      </group>
+      <label>Steering Wheel</label>
+      <icon type="theme">utilities-system-monitor</icon>
+      <statustip>Gauges visualization tool.</statustip>
+    </qtgui>
+  </class>
 </library>
