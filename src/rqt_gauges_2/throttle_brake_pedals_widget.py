@@ -94,7 +94,7 @@ class ThrottleBrakePedalsWidget(QWidget):
             print("There was no previous subscription")
         topic_path = self.throttle_topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
-        self.field_evals = generate_field_evals(fields)
+        self.throttle_field_evals = generate_field_evals(fields)
         if topic_type is not None:
             print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
             data_class = get_message(topic_type)
@@ -112,7 +112,7 @@ class ThrottleBrakePedalsWidget(QWidget):
             print("There was no previous subscription")
         topic_path = self.brake_topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
-        self.field_evals = generate_field_evals(fields)
+        self.brake_field_evals = generate_field_evals(fields)
         if topic_type is not None:
             print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
             data_class = get_message(topic_type)
@@ -124,7 +124,7 @@ class ThrottleBrakePedalsWidget(QWidget):
 
     def throttle_callback(self, msg):
         value = msg
-        for f in self.field_evals:
+        for f in self.throttle_field_evals:
             value = f(value)
         if value <= 1 and value >= 0:
             self.throttle_pedal.setValue(int(value*100))
@@ -134,7 +134,7 @@ class ThrottleBrakePedalsWidget(QWidget):
 
     def brake_callback(self, msg):
         value = msg
-        for f in self.field_evals:
+        for f in self.brake_field_evals:
             value = f(value)
         if value <= 1 and value >= 0:
             self.brake_pedal.setValue(int(value*100))
