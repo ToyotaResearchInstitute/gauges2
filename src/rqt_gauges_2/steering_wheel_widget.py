@@ -45,7 +45,6 @@ def _field_eval(field_name):
         return getattr(f, field_name)
     return fn
 
-
 def generate_field_evals(fields):
     evals = []
     fields = [f for f in fields.split('/') if f]
@@ -69,3 +68,35 @@ class SteeringWheelWidget(QWidget):
         _, package_path = get_resource('packages', 'rqt_gauges_2')
         ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2', 'resource', 'steering_wheel.ui')
         loadUi(ui_file, self)
+
+        self.topic_to_subscribe.setNode(self.node)
+
+        self._topic_completer = TopicCompleter(self.topic_to_subscribe)
+        self._topic_completer.update_topics(self.node)
+        self.topic_to_subscribe.setCompleter(self._topic_completer)
+
+        self.subscribe_button.pressed.connect(self.updateSubscription)
+
+    @pyqtSlot()
+    def updateSubscription(self):
+        if self.node.destroy_subscription(self.sub):
+            print("Previous subscription deleted")
+        else:
+            print("There was no previous subscription")
+        topic_path = self.topic_to_subscribe.text()
+        topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
+        self.field_evals = generate_field_evals(fields)
+        if topic_type is not None:
+            print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
+            data_class = get_message(topic_type)
+            self.sub = self.node.create_subscription(
+                data_class,
+                topic_name,
+                self.steering_wheel_callback,
+                10)
+            
+    def steering_wheel_callback(self, msg):
+        value = msg
+        for f in self.field_evals:
+            value = f(value)
+        self.steering_wheel_gauge.updateValue(float(value))

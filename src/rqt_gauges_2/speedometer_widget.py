@@ -45,7 +45,6 @@ def _field_eval(field_name):
         return getattr(f, field_name)
     return fn
 
-
 def generate_field_evals(fields):
     evals = []
     fields = [f for f in fields.split('/') if f]
