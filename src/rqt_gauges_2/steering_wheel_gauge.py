@@ -31,38 +31,37 @@ class SteeringWheelGauge(QWidget):
         self.enable_shadow = True
 
         self.angle_offset = 0
-
         self.minValue = -45
         self.maxValue = 45
 
-        if self.width <= self.height:
-            self.widget_diameter = self.width
-        else:
-            self.widget_diameter = self.height
-
+        self.widget_diameter = min(self.width, self.height)
         self.resize(self.width, self.height)
 
+        self.scale_line_outer_start = (self.widget_diameter)/2
+        self.scale_line_length = (self.widget_diameter / 2) - (self.widget_diameter / 20)
 
-    def draw_big_scaled_marker(self, start_angle_value, angle_size, scalaCount):
+        self.text_radius_factor = 0.75
+        self.text_radius = self.widget_diameter/2 * self.text_radius_factor
+
+
+    def draw_big_scaled_marker(self, start_angle_value: int, angle_size: int, scala_count: int):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.translate(self.width / 2, self.height / 2)
 
-        self.pen = QPen(Qt.black)
-        self.pen.setWidth(2)
-        painter.setPen(self.pen)
+        pen = QPen(Qt.black)
+        pen.setWidth(2)
+        painter.setPen(pen)
 
         painter.rotate(start_angle_value - self.angle_offset)
-        steps_size = (float(angle_size) / float(scalaCount))
-        scale_line_outer_start = (self.widget_diameter)/2
-        scale_line_lenght = (self.widget_diameter / 2) - (self.widget_diameter / 20)
-
-        for i in range(scalaCount+1):
-            painter.drawLine(scale_line_lenght, 0, scale_line_outer_start, 0)
+        steps_size = (float(angle_size) / float(scala_count))
+        
+        for _ in range(scala_count+1):
+            painter.drawLine(self.scale_line_length, 0, self.scale_line_outer_start, 0)
             painter.rotate(steps_size)
         painter.end()
 
-    def create_scale_marker_values_text(self, scale_angle_start_value, scale_angle_size, scalaCount):
+    def create_scale_marker_values_text(self, scale_angle_start_value: int, scale_angle_size: int, scalaCount: int):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.TextAntialiasing)
         painter.translate(self.width / 2, self.height / 2)
@@ -70,12 +69,8 @@ class SteeringWheelGauge(QWidget):
         fm = QFontMetrics(font)
 
         pen_shadow = QPen()
-
         pen_shadow.setBrush(QColor(0, 0, 0, 255))
         painter.setPen(pen_shadow)
-
-        text_radius_factor = 0.75
-        text_radius = self.widget_diameter/2 * text_radius_factor
 
         scale_per_div = int((self.maxValue - self.minValue) / scalaCount)
 
@@ -86,24 +81,19 @@ class SteeringWheelGauge(QWidget):
             h = fm.height()
             painter.setFont(QFont(self.font_family, self.scale_font_size))
             angle = angle_distance * i + float(scale_angle_start_value - self.angle_offset)
-            x = text_radius * math.cos(math.radians(angle))
-            y = text_radius * math.sin(math.radians(angle))
+            x = self.text_radius * math.cos(math.radians(angle))
+            y = self.text_radius * math.sin(math.radians(angle))
 
             text = [x - int(w/2), y - int(h/2), int(w), int(h), Qt.AlignCenter, text]
             painter.drawText(text[0], text[1], text[2], text[3], text[4], text[5])
         painter.end()
 
-    def updateValue(self, value):
+    def updateValue(self, value: float):
         # Updates the value that the gauge is indicating.
         # Args: 
         #   value: Value to update the gauge with.
-  
-        if value <= self.minValue:
-            self.value = self.minValue
-        elif value >= self.maxValue:
-            self.value = self.maxValue
-        else:
-            self.value = value
+        value = max(value, self.minValue)
+        value = min(value, self.maxValue)
         self.repaint()
 
     def draw_background_circle(self):
