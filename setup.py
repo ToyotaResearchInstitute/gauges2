@@ -13,6 +13,8 @@ setup(
         ('share/' + package_name + '/resource',
             ['resource/speedometer.ui']),
         ('share/' + package_name + '/resource',
+            ['resource/steering_wheel.ui']),
+        ('share/' + package_name + '/resource',
             ['resource/throttle_brake_pedals.ui']),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name, ['plugin.xml']),
