@@ -1,17 +1,21 @@
 import math
 
+from PyQt5.QtCore import QRect, Qt
+from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QPainter, QPen
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QPolygon, QPolygonF, QColor, QPen, QFont, QPainter, QFontMetrics, QConicalGradient, QRadialGradient, QBrush
-from PyQt5.QtCore import Qt, QPoint, QPointF, QObject, QRect
+
 
 class SteeringWheelGauge(QWidget):
-    # This class creates a gauge object that contains several elements such as a needle, big and small scales
-    # and different circles painted with different colors to look like a car Speedometer. It has the ability to
-    # modify the minimum and maximum values of the gauge and the units the numbers are displaying. The class contains
-    # methods used to modify the values explained before, the marked number of the gauge and the whole design as well.
+    # This class creates a gauge object that contains several elements such as a needle,
+    # big and small scales and different circles painted with different colors to look
+    # like a car Speedometer. It has the ability to modify the minimum and maximum values
+    # of the gauge and the units the numbers are displaying. The class contains
+    # methods used to modify the values explained before, the marked number of the gauge
+    # and the whole design as well.
 
     def __init__(self, parent=None):
-        # Constructor method of the class, initializes all the variables needed to create the gauge.
+        # Constructor method of the class, initializes all the variables needed to create
+        # # the gauge.
 
         super(SteeringWheelGauge, self).__init__(parent)
 
@@ -25,8 +29,8 @@ class SteeringWheelGauge(QWidget):
         self.circle_max_angle = 135
         self.font_size = 40
         self.scale_font_size = 15
-        self.font_family = "Verdana"
-        self.suffix = "°"
+        self.font_family = 'Verdana'
+        self.suffix = '°'
         self.text_color = 0x000000
         self.enable_shadow = True
 
@@ -43,7 +47,6 @@ class SteeringWheelGauge(QWidget):
         self.text_radius_factor = 0.75
         self.text_radius = self.widget_diameter/2 * self.text_radius_factor
 
-
     def draw_big_scaled_marker(self, start_angle_value: int, angle_size: int, scala_count: int):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -55,13 +58,14 @@ class SteeringWheelGauge(QWidget):
 
         painter.rotate(start_angle_value - self.angle_offset)
         steps_size = (float(angle_size) / float(scala_count))
-        
+
         for _ in range(scala_count+1):
             painter.drawLine(self.scale_line_length, 0, self.scale_line_outer_start, 0)
             painter.rotate(steps_size)
         painter.end()
 
-    def create_scale_marker_values_text(self, scale_angle_start_value: int, scale_angle_size: int, scalaCount: int):
+    def create_scale_marker_values_text(self, scale_angle_start_value: int,
+                                        scale_angle_size: int, scalaCount: int):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.TextAntialiasing)
         painter.translate(self.width / 2, self.height / 2)
@@ -90,7 +94,7 @@ class SteeringWheelGauge(QWidget):
 
     def updateValue(self, value: float):
         # Updates the value that the gauge is indicating.
-        # Args: 
+        # Args:
         #   value: Value to update the gauge with.
         value = max(value, self.minValue)
         value = min(value, self.maxValue)
@@ -140,11 +144,9 @@ class SteeringWheelGauge(QWidget):
         # Create Gauge Text
         pen.setColor(QColor(self.text_color))
         painter.setPen(pen)
-        painter.drawText(rect, Qt.AlignCenter, f"{self.value}{self.suffix}")
-
+        painter.drawText(rect, Qt.AlignCenter, f'{self.value}{self.suffix}')
         # End Painter
         painter.end()
 
         self.draw_big_scaled_marker(131, 278, 5)
         self.create_scale_marker_values_text(131, 278, 5)
-        

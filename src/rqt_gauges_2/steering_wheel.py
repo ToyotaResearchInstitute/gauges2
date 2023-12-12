@@ -1,5 +1,7 @@
 from qt_gui.plugin import Plugin
-from .steering_wheel_widget import *
+
+from .steering_wheel_widget import SteeringWheelWidget
+
 
 class SteeringWheel(Plugin):
 

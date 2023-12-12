@@ -4,7 +4,7 @@
   <name>rqt_gauges_2</name>
   <version>0.0.1</version>
   <description>Visualization plugin for several sensors.</description>
-  
+
   <maintainer email="eloy.briceno@ekumenlabs.com">Eloy Bricneo</maintainer>
 
   <license file="LICENSE">BSD Clause 3</license>
@@ -15,6 +15,9 @@
   <exec_depend>rclpy</exec_depend>
   <exec_depend>rqt_gui</exec_depend>
   <exec_depend>rqt_gui_py</exec_depend>
+
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_xmllint</test_depend>
 
   <export>
     <architecture_independent/>

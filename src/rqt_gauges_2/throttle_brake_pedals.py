@@ -1,5 +1,7 @@
 from qt_gui.plugin import Plugin
-from .throttle_brake_pedals_widget import *
+
+from .throttle_brake_pedals_widget import ThrottleBrakePedalsWidget
+
 
 class ThrottleBrakePedals(Plugin):
 

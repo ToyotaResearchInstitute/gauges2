@@ -1,5 +1,7 @@
 from qt_gui.plugin import Plugin
-from .speedometer_widget import *
+
+from .speedometer_widget import SpeedometerWidget
+
 
 class Speedometer(Plugin):
 
@@ -12,5 +14,3 @@ class Speedometer(Plugin):
 
         self._widget = SpeedometerWidget(self._node)
         context.add_widget(self._widget)
-
-    

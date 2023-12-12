@@ -1,15 +1,17 @@
 import os
 
 from ament_index_python.resources import get_resource
-from python_qt_binding import loadUi
+from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, pyqtSlot
+from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
 from rqt_py_common.topic_completer import TopicCompleter
 
+
 def get_topic_type(node, topic):
     """
-    subroutine for getting the topic type
+    Subroutine for getting the topic type.
+
     (nearly identical to rostopic._get_topic_type, except it returns rest of name instead of fn)
 
     :returns: topic type, real topic name, and rest of name referenced
@@ -26,8 +28,11 @@ def get_topic_type(node, topic):
                 return t_type, t, topic[len(t):]
     return None, None, None
 
+
 def _array_eval(field_name, slot_num):
     """
+    Array evaluation.
+
     :param field_name: name of field to index into, ``str``
     :param slot_num: index of slot to return, ``str``
     :returns: fn(msg_field)->msg_field[slot_num]
@@ -36,14 +41,18 @@ def _array_eval(field_name, slot_num):
         return getattr(f, field_name).__getitem__(slot_num)
     return fn
 
+
 def _field_eval(field_name):
     """
+    Field evaluation.
+
     :param field_name: name of field to return, ``str``
     :returns: fn(msg_field)->msg_field.field_name
     """
     def fn(f):
         return getattr(f, field_name)
     return fn
+
 
 def generate_field_evals(fields):
     evals = []
@@ -57,7 +66,9 @@ def generate_field_evals(fields):
             evals.append(_field_eval(f))
     return evals
 
+
 class SpeedometerWidget(QWidget):
+
     def __init__(self, node):
         super(SpeedometerWidget, self).__init__()
         self.setObjectName('Speedometer_widget')
@@ -112,14 +123,14 @@ class SpeedometerWidget(QWidget):
     @pyqtSlot()
     def updateSubscription(self):
         if self.node.destroy_subscription(self.sub):
-            print("Previous subscription deleted")
+            print('Previous subscription deleted')
         else:
-            print("There was no previous subscription")
+            print('There was no previous subscription')
         topic_path = self.topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
         self.field_evals = generate_field_evals(fields)
         if topic_type is not None:
-            print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
+            print('Subscribing to:', topic_name, 'Type:', topic_type, 'Field:', fields)
             data_class = get_message(topic_type)
             self.sub = self.node.create_subscription(
                 data_class,
