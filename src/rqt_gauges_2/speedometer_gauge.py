@@ -104,10 +104,9 @@ class SpeedometerGauge(QWidget):
                                 [1, QColor(30, 40, 3, 255)]
                                 ]
 
-        self.outer_circle_bg =  [
+        self.outer_circle_bg = [
                                 [0, QColor(255, 255, 255, 255)],
-                                [1, QColor(0, 0, 0, 255)]
-                                ]
+                                [1, QColor(0, 0, 0, 255)]]
 
     def rescale_method(self):
         # This method adjust the gauge to the window size.
@@ -172,7 +171,7 @@ class SpeedometerGauge(QWidget):
 
         self.update()
 
-    def create_polygon_pie(self, outer_radius, inner_radius, start, lenght, bar_graph=True):
+    def create_polygon_pie(self, outer_radius, inner_radius, start, length, bar_graph=True):
         # Creates the outer and inner circle of the gauge. Uses the
 
         polygon_pie = QPolygonF()
