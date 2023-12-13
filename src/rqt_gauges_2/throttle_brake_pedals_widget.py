@@ -1,15 +1,17 @@
 import os
 
 from ament_index_python.resources import get_resource
-from python_qt_binding import loadUi
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, pyqtSlot
+from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
 from rqt_py_common.topic_completer import TopicCompleter
 
+
 def get_topic_type(node, topic):
     """
-    subroutine for getting the topic type
+    Subroutine for getting the topic type.
+
     (nearly identical to rostopic._get_topic_type, except it returns rest of name instead of fn)
 
     :returns: topic type, real topic name, and rest of name referenced
@@ -26,8 +28,11 @@ def get_topic_type(node, topic):
                 return t_type, t, topic[len(t):]
     return None, None, None
 
+
 def _array_eval(field_name, slot_num):
     """
+    Array Evaluation.
+
     :param field_name: name of field to index into, ``str``
     :param slot_num: index of slot to return, ``str``
     :returns: fn(msg_field)->msg_field[slot_num]
@@ -36,14 +41,18 @@ def _array_eval(field_name, slot_num):
         return getattr(f, field_name).__getitem__(slot_num)
     return fn
 
+
 def _field_eval(field_name):
     """
+    Field evaluation.
+
     :param field_name: name of field to return, ``str``
     :returns: fn(msg_field)->msg_field.field_name
     """
     def fn(f):
         return getattr(f, field_name)
     return fn
+
 
 def generate_field_evals(fields):
     evals = []
@@ -57,9 +66,11 @@ def generate_field_evals(fields):
             evals.append(_field_eval(f))
     return evals
 
+
 class ThrottleBrakePedalsWidget(QWidget):
+
     def __init__(self, node):
-        super(ThrottleBrakePedalsWidget, self).__init__()
+        super().__init__()
         self.setObjectName('ThrottleBrakePedals_widget')
 
         self.node = node
@@ -67,7 +78,8 @@ class ThrottleBrakePedalsWidget(QWidget):
         self.brake_sub = None
 
         _, package_path = get_resource('packages', 'rqt_gauges_2')
-        ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2', 'resource', 'throttle_brake_pedals.ui')
+        ui_file = os.path.join(package_path, 'share',
+                               'rqt_gauges_2', 'resource', 'throttle_brake_pedals.ui')
         loadUi(ui_file, self)
 
         # Throttle Topic Completer
@@ -89,14 +101,14 @@ class ThrottleBrakePedalsWidget(QWidget):
     @pyqtSlot()
     def throttleUpdateSubscription(self):
         if self.node.destroy_subscription(self.throttle_sub):
-            print("Previous subscription deleted")
+            print('Previous subscription deleted')
         else:
-            print("There was no previous subscription")
+            print('There was no previous subscription')
         topic_path = self.throttle_topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
         self.throttle_field_evals = generate_field_evals(fields)
         if topic_type is not None:
-            print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
+            print('Subscribing to:', topic_name, 'Type:', topic_type, 'Field:', fields)
             data_class = get_message(topic_type)
             self.throttle_sub = self.node.create_subscription(
                 data_class,
@@ -107,14 +119,14 @@ class ThrottleBrakePedalsWidget(QWidget):
     @pyqtSlot()
     def brakeUpdateSubscription(self):
         if self.node.destroy_subscription(self.brake_sub):
-            print("Previous subscription deleted")
+            print('Previous subscription deleted')
         else:
-            print("There was no previous subscription")
+            print('There was no previous subscription')
         topic_path = self.brake_topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
         self.brake_field_evals = generate_field_evals(fields)
         if topic_type is not None:
-            print("Subscribing to:", topic_name, "Type:", topic_type, "Field:", fields)
+            print('Subscribing to:', topic_name, 'Type:', topic_type, 'Field:', fields)
             data_class = get_message(topic_type)
             self.brake_sub = self.node.create_subscription(
                 data_class,
@@ -130,7 +142,7 @@ class ThrottleBrakePedalsWidget(QWidget):
             self.throttle_pedal.setValue(int(value*100))
             self.throttle_label.setText(str(value))
         else:
-            print("The throttle pedal value is not between 0 and 1")
+            print('The throttle pedal value is not between 0 and 1')
 
     def brake_callback(self, msg):
         value = msg
@@ -140,5 +152,4 @@ class ThrottleBrakePedalsWidget(QWidget):
             self.brake_pedal.setValue(int(value*100))
             self.brake_label.setText(str(value))
         else:
-            print("The brake pedal value is not between 0 and 1")
-
+            print('The brake pedal value is not between 0 and 1')

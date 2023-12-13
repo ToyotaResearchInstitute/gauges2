@@ -1,19 +1,23 @@
 import math
 
+from PyQt5.QtCore import QObject, QPoint, QPointF, Qt
+from PyQt5.QtGui import (QColor, QConicalGradient, QFont, QFontMetrics, QPainter, QPen,
+                         QPolygon, QPolygonF, QRadialGradient)
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QPolygon, QPolygonF, QColor, QPen, QFont, QPainter, QFontMetrics, QConicalGradient, QRadialGradient
-from PyQt5.QtCore import Qt, QPoint, QPointF, QObject
+
 
 class SpeedometerGauge(QWidget):
-    # This class creates a gauge object that contains several elements such as a needle, big and small scales
-    # and different circles painted with different colors to look like a car Speedometer. It has the ability to
-    # modify the minimum and maximum values of the gauge and the units the numbers are displaying. The class contains
-    # methods used to modify the values explained before, the marked number of the gauge and the whole design as well.
+    # This class creates a gauge object that contains several elements such as a needle,
+    # big and small scales and different circles painted with different colors to look like
+    # a car Speedometer. It has the ability to modify the minimum and maximum values of the
+    # gauge and the units the numbers are displaying. The class contains methods used to modify
+    # the values explained before, the marked number of the gauge and the whole design as well.
 
     def __init__(self, parent=None):
-        # Constructor method of the class, initializes all the variables needed to create the gauge.
+        # Constructor method of the class, initializes all the variables needed to create
+        # the gauge.
 
-        super(SpeedometerGauge, self).__init__(parent)
+        super().__init__(parent)
 
         # Needle Attributes
         self.NeedleColor = QColor(0, 0, 0, 255)
@@ -50,18 +54,18 @@ class SpeedometerGauge(QWidget):
 
         # Scale Text Attributes
         self.enable_scale_text = True
-        self.scale_fontname = "Verdana"
+        self.scale_fontname = 'Verdana'
         self.initial_scale_fontsize = 14
         self.scale_fontsize = self.initial_scale_fontsize
 
         # Speed Text Attributes
         self.enable_value_text = True
-        self.value_fontname = "Verdana"
+        self.value_fontname = 'Verdana'
         self.initial_value_fontsize = 40
         self.value_fontsize = self.initial_value_fontsize
         self.text_radius_factor = 0.5
 
-        self.units = ""
+        self.units = ''
 
         # Gauge Attributes flags
         self.enableBarGraph = True
@@ -81,11 +85,13 @@ class SpeedometerGauge(QWidget):
         self.rescale_method()
 
     def setGaugeTheme(self):
-        # This method defines the theme of the gauge, it is used to stablish the colors for each section of the gauge.
+        # This method defines the theme of the gauge, it is used to stablish the colors for each
+        # section of the gauge.
+
         self.scale_polygon_colors = [[.00, Qt.red],
-                                [.18, Qt.yellow],
-                                [.35, Qt.green],
-                                [1, Qt.transparent]]
+                                     [.18, Qt.yellow],
+                                     [.35, Qt.green],
+                                     [1, Qt.transparent]]
 
         self.needle_center_bg = [
                                 [0, QColor(35, 40, 3, 255)],
@@ -98,10 +104,9 @@ class SpeedometerGauge(QWidget):
                                 [1, QColor(30, 40, 3, 255)]
                                 ]
 
-        self.outer_circle_bg =  [
+        self.outer_circle_bg = [
                                 [0, QColor(255, 255, 255, 255)],
-                                [1, QColor(0, 0, 0, 255)]
-                                ]
+                                [1, QColor(0, 0, 0, 255)]]
 
     def rescale_method(self):
         # This method adjust the gauge to the window size.
@@ -140,7 +145,7 @@ class SpeedometerGauge(QWidget):
             self.value = value
         self.update()
 
-    def setMinValue(self, min):
+    def setMinValue(self, min_value):
         # Modifies the minimum value of the gauge
         # Args:
         #   min: Value to update the minimum value of the gauge.
@@ -149,11 +154,11 @@ class SpeedometerGauge(QWidget):
         if min >= self.maxValue:
             self.minValue = self.maxValue - 1
         else:
-            self.minValue = min
+            self.minValue = min_value
 
         self.update()
 
-    def setMaxValue(self, max):
+    def setMaxValue(self, max_value):
         # Modifies the maximum value of the gauge
         # Args:
         #   max: Value to update the maximum value of the gauge.
@@ -162,11 +167,11 @@ class SpeedometerGauge(QWidget):
         if max <= self.minValue:
             self.maxValue = self.minValue + 1
         else:
-            self.maxValue = max
+            self.maxValue = max_value
 
         self.update()
 
-    def create_polygon_pie(self, outer_radius, inner_radius, start, lenght, bar_graph = True):
+    def create_polygon_pie(self, outer_radius, inner_radius, start, length, bar_graph=True):
         # Creates the outer and inner circle of the gauge. Uses the
 
         polygon_pie = QPolygonF()
@@ -176,19 +181,20 @@ class SpeedometerGauge(QWidget):
         y = 0
 
         if not self.enableBarGraph and bar_graph:
-            lenght = int(round((lenght / (self.maxValue - self.minValue)) * (self.value - self.minValue)))
+            length = int(round((length / (self.maxValue - self.minValue)) *
+                         (self.value - self.minValue)))
             pass
 
         # Outer Circle
-        for i in range(lenght+1):
+        for i in range(length+1):
             t = w * i + start - self.angle_offset
             x = outer_radius * math.cos(math.radians(t))
             y = outer_radius * math.sin(math.radians(t))
             polygon_pie.append(QPointF(x, y))
 
         # Inner Circle
-        for i in range(lenght+1):
-            t = w * (lenght - i) + start - self.angle_offset
+        for i in range(length+1):
+            t = w * (length - i) + start - self.angle_offset
             x = inner_radius * math.cos(math.radians(t))
             y = inner_radius * math.sin(math.radians(t))
             polygon_pie.append(QPointF(x, y))
@@ -207,12 +213,14 @@ class SpeedometerGauge(QWidget):
             painter_filled_polygon.setPen(self.pen)
 
         colored_scale_polygon = self.create_polygon_pie(
-            ((self.widget_diameter / 2) - (self.pen.width() / 2)) * self.gauge_color_outer_radius_factor,
-            (((self.widget_diameter / 2) - (self.pen.width() / 2)) * self.gauge_color_inner_radius_factor),
+            ((self.widget_diameter / 2) - (self.pen.width() / 2)) *
+            self.gauge_color_outer_radius_factor,
+            (((self.widget_diameter / 2) - (self.pen.width() / 2)) *
+             self.gauge_color_inner_radius_factor),
             self.scale_angle_start_value, self.scale_angle_size)
 
-        grad = QConicalGradient(QPointF(0, 0), - self.scale_angle_size - self.scale_angle_start_value +
-                                self.angle_offset - 1)
+        grad = QConicalGradient(QPointF(0, 0), - self.scale_angle_size -
+                                self.scale_angle_start_value + self.angle_offset - 1)
 
         for eachcolor in self.scale_polygon_colors:
             grad.setColorAt(eachcolor[0], eachcolor[1])
@@ -275,7 +283,8 @@ class SpeedometerGauge(QWidget):
 
         my_painter.setPen(self.fineScaleColor)
         my_painter.rotate(self.scale_angle_start_value - self.angle_offset)
-        steps_size = (float(self.scale_angle_size) / float(self.scalaCount * self.scala_subdiv_count))
+        steps_size = (float(self.scale_angle_size) / float(self.scalaCount
+                      * self.scala_subdiv_count))
         scale_line_outer_start = self.widget_diameter/2
         scale_line_lenght = (self.widget_diameter / 2) - (self.widget_diameter / 40)
         for i in range((self.scalaCount * self.scala_subdiv_count)+1):
@@ -329,7 +338,6 @@ class SpeedometerGauge(QWidget):
         h = fm.height()
         painter.setFont(QFont(self.value_fontname, int(self.value_fontsize / 2.5), QFont.Bold))
 
-
         angle_end = float(self.scale_angle_start_value + self.scale_angle_size + 180)
         angle = (angle_end - self.scale_angle_start_value) / 2 + self.scale_angle_start_value
 
@@ -354,7 +362,6 @@ class SpeedometerGauge(QWidget):
             grad.setColorAt(eachcolor[0], eachcolor[1])
         painter.setBrush(grad)
 
-
         painter.drawPolygon(colored_scale_polygon)
 
     def draw_outer_circle(self):
@@ -370,7 +377,6 @@ class SpeedometerGauge(QWidget):
 
         for eachcolor in self.outer_circle_bg:
             radialGradient.setColorAt(eachcolor[0], eachcolor[1])
-
 
         painter.setBrush(radialGradient)
 

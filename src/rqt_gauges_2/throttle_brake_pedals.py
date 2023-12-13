@@ -1,10 +1,12 @@
 from qt_gui.plugin import Plugin
-from .throttle_brake_pedals_widget import *
+
+from .throttle_brake_pedals_widget import ThrottleBrakePedalsWidget
+
 
 class ThrottleBrakePedals(Plugin):
 
     def __init__(self, context):
-        super(ThrottleBrakePedals, self).__init__(context)
+        super().__init__(context)
         self.setObjectName('ThrottleBrakePedals')
 
         self._context = context
