@@ -94,18 +94,20 @@ class SpeedometerGauge(QWidget):
                                      [1, Qt.transparent]]
 
         self.needle_center_bg = [
-                                  [0, QColor(35, 40, 3, 255)],
-                                  [0.16, QColor(30, 36, 45, 255)],
-                                  [0.225, QColor(36, 42, 54, 255)],
-                                  [0.423963, QColor(19, 23, 29, 255)],
-                                  [0.580645, QColor(45, 53, 68, 255)],
-                                  [0.792627, QColor(59, 70, 88, 255)],
-                                  [0.935, QColor(30, 35, 45, 255)],
-                                  [1, QColor(30, 40, 3, 255)]]
+                                [0, QColor(35, 40, 3, 255)],
+                                [0.16, QColor(30, 36, 45, 255)],
+                                [0.225, QColor(36, 42, 54, 255)],
+                                [0.423963, QColor(19, 23, 29, 255)],
+                                [0.580645, QColor(45, 53, 68, 255)],
+                                [0.792627, QColor(59, 70, 88, 255)],
+                                [0.935, QColor(30, 35, 45, 255)],
+                                [1, QColor(30, 40, 3, 255)]
+                                ]
 
-        self.outer_circle_bg = [
-                                 [0, QColor(255, 255, 255, 255)],
-                                 [1, QColor(0, 0, 0, 255)]]
+        self.outer_circle_bg =  [
+                                [0, QColor(255, 255, 255, 255)],
+                                [1, QColor(0, 0, 0, 255)]
+                                ]
 
     def rescale_method(self):
         # This method adjust the gauge to the window size.
@@ -147,10 +149,10 @@ class SpeedometerGauge(QWidget):
     def setMinValue(self, min_value):
         # Modifies the minimum value of the gauge
         # Args:
-        #   min_value: Value to update the minimum value of the gauge.
-        if self.value < min_value:
-            self.value = min_value
-        if min_value >= self.maxValue:
+        #   min: Value to update the minimum value of the gauge.
+        if self.value < min:
+            self.value = min
+        if min >= self.maxValue:
             self.minValue = self.maxValue - 1
         else:
             self.minValue = min_value
@@ -160,17 +162,17 @@ class SpeedometerGauge(QWidget):
     def setMaxValue(self, max_value):
         # Modifies the maximum value of the gauge
         # Args:
-        #   max_value: Value to update the maximum value of the gauge.
-        if self.value > max_value:
-            self.value = max_value
-        if max_value <= self.minValue:
+        #   max: Value to update the maximum value of the gauge.
+        if self.value > max:
+            self.value = max
+        if max <= self.minValue:
             self.maxValue = self.minValue + 1
         else:
             self.maxValue = max_value
 
         self.update()
 
-    def create_polygon_pie(self, outer_radius, inner_radius, start, lenght, bar_graph=True):
+    def create_polygon_pie(self, outer_radius, inner_radius, start, lenght, bar_graph = True):
         # Creates the outer and inner circle of the gauge. Uses the
 
         polygon_pie = QPolygonF()
