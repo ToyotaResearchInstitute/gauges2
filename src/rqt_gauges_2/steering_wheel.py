@@ -6,7 +6,7 @@ from .steering_wheel_widget import SteeringWheelWidget
 class SteeringWheel(Plugin):
 
     def __init__(self, context):
-        super(SteeringWheel, self).__init__(context)
+        super().__init__(context)
         self.setObjectName('Speedometer')
 
         self._context = context

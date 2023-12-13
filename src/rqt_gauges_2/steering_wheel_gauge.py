@@ -17,7 +17,7 @@ class SteeringWheelGauge(QWidget):
         # Constructor method of the class, initializes all the variables needed to create
         # # the gauge.
 
-        super(SteeringWheelGauge, self).__init__(parent)
+        super().__init__(parent)
 
         self.value = 0
         self.width = 400
@@ -60,7 +60,7 @@ class SteeringWheelGauge(QWidget):
         steps_size = (float(angle_size) / float(scala_count))
 
         for _ in range(scala_count+1):
-            painter.drawLine(self.scale_line_length, 0, self.scale_line_outer_start, 0)
+            painter.drawLine(int(self.scale_line_length), 0, int(self.scale_line_outer_start), 0)
             painter.rotate(steps_size)
         painter.end()
 
