@@ -6,7 +6,7 @@ from .speedometer_widget import SpeedometerWidget
 class Speedometer(Plugin):
 
     def __init__(self, context):
-        super(Speedometer, self).__init__(context)
+        super().__init__(context)
         self.setObjectName('Speedometer')
 
         self._context = context

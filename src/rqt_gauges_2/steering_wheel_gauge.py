@@ -17,7 +17,7 @@ class SteeringWheelGauge(QWidget):
         # Constructor method of the class, initializes all the variables needed to create
         # # the gauge.
 
-        super(SteeringWheelGauge, self).__init__(parent)
+        super().__init__(parent)
 
         self.value = 0
         self.width = 400
@@ -60,7 +60,7 @@ class SteeringWheelGauge(QWidget):
         steps_size = (float(angle_size) / float(scala_count))
 
         for _ in range(scala_count+1):
-            painter.drawLine(self.scale_line_length, 0, self.scale_line_outer_start, 0)
+            painter.drawLine(int(self.scale_line_length), 0, int(self.scale_line_outer_start), 0)
             painter.rotate(steps_size)
         painter.end()
 
@@ -85,8 +85,8 @@ class SteeringWheelGauge(QWidget):
             h = fm.height()
             painter.setFont(QFont(self.font_family, self.scale_font_size))
             angle = angle_distance * i + float(scale_angle_start_value - self.angle_offset)
-            x = self.text_radius * math.cos(math.radians(angle))
-            y = self.text_radius * math.sin(math.radians(angle))
+            x = int(self.text_radius * math.cos(math.radians(angle)))
+            y = int(self.text_radius * math.sin(math.radians(angle)))
 
             text = [x - int(w/2), y - int(h/2), int(w), int(h), Qt.AlignCenter, text]
             painter.drawText(text[0], text[1], text[2], text[3], text[4], text[5])
@@ -113,8 +113,8 @@ class SteeringWheelGauge(QWidget):
         # Size variables
         width = self.width - self.progress_width
         height = self.height - self.progress_width
-        margin = self.progress_width / 2
-        value = self.value * self.circle_max_angle / self.max_value
+        margin = int(self.progress_width / 2)
+        value = int(self.value * self.circle_max_angle / self.max_value)
 
         # Draw Circle
         self.draw_background_circle()

@@ -70,7 +70,7 @@ def generate_field_evals(fields):
 class SteeringWheelWidget(QWidget):
 
     def __init__(self, node):
-        super(SteeringWheelWidget, self).__init__()
+        super().__init__()
         self.setObjectName('SteeringWheel_widget')
 
         self.node = node

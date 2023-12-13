@@ -17,7 +17,7 @@ class SpeedometerGauge(QWidget):
         # Constructor method of the class, initializes all the variables needed to create
         # the gauge.
 
-        super(SpeedometerGauge, self).__init__(parent)
+        super().__init__(parent)
 
         # Needle Attributes
         self.NeedleColor = QColor(0, 0, 0, 255)
@@ -170,7 +170,7 @@ class SpeedometerGauge(QWidget):
 
         self.update()
 
-    def create_polygon_pie(self, outer_radius, inner_radius, start, lenght, bar_graph=True):
+    def create_polygon_pie(self, outer_radius, inner_radius, start, length, bar_graph=True):
         # Creates the outer and inner circle of the gauge. Uses the
 
         polygon_pie = QPolygonF()
@@ -180,20 +180,20 @@ class SpeedometerGauge(QWidget):
         y = 0
 
         if not self.enableBarGraph and bar_graph:
-            lenght = int(round((lenght / (self.maxValue - self.minValue)) *
+            length = int(round((length / (self.maxValue - self.minValue)) *
                          (self.value - self.minValue)))
             pass
 
         # Outer Circle
-        for i in range(lenght+1):
+        for i in range(length+1):
             t = w * i + start - self.angle_offset
             x = outer_radius * math.cos(math.radians(t))
             y = outer_radius * math.sin(math.radians(t))
             polygon_pie.append(QPointF(x, y))
 
         # Inner Circle
-        for i in range(lenght+1):
-            t = w * (lenght - i) + start - self.angle_offset
+        for i in range(length+1):
+            t = w * (length - i) + start - self.angle_offset
             x = inner_radius * math.cos(math.radians(t))
             y = inner_radius * math.sin(math.radians(t))
             polygon_pie.append(QPointF(x, y))

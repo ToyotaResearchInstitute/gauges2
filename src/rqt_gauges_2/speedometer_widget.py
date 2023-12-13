@@ -70,7 +70,7 @@ def generate_field_evals(fields):
 class SpeedometerWidget(QWidget):
 
     def __init__(self, node):
-        super(SpeedometerWidget, self).__init__()
+        super().__init__()
         self.setObjectName('Speedometer_widget')
 
         self.node = node

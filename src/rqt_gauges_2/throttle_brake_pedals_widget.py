@@ -70,7 +70,7 @@ def generate_field_evals(fields):
 class ThrottleBrakePedalsWidget(QWidget):
 
     def __init__(self, node):
-        super(ThrottleBrakePedalsWidget, self).__init__()
+        super().__init__()
         self.setObjectName('ThrottleBrakePedals_widget')
 
         self.node = node

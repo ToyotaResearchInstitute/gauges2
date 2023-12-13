@@ -16,4 +16,4 @@ class TopicQLineEdit(QLineEdit):
             self.setCompleter(completer)
         else:
             print('The completer of the QLineEdit is not a TopicCompleter object class')
-        super(TopicQLineEdit, self).focusInEvent(event)
+        super().focusInEvent(event)
