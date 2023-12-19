@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
 from rqt_py_common.topic_completer import TopicCompleter
+
 from .utils import generate_field_evals, get_topic_type
 
 
