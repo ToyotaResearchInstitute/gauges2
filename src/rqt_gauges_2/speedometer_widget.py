@@ -92,4 +92,3 @@ class SpeedometerWidget(QWidget):
                 self.speedometer_gauge.updateValue(self.speedometer_gauge.minValue)
         else:
             self.speedometer_gauge.updateValue(self.speedometer_gauge.minValue)
-
