@@ -40,18 +40,24 @@ def _field_eval(field_name):
     :returns: fn(msg_field)->msg_field.field_name
     """
     def fn(f):
-        return getattr(f, field_name)
+        if (hasattr(f, field_name)):
+            return getattr(f, field_name)
     return fn
 
 
 def generate_field_evals(fields):
     evals = []
-    fields = [f for f in fields.split('/') if f]
-    for f in fields:
-        if '[' in f:
-            field_name, rest = f.split('[')
-            slot_num = int(rest[:rest.find(']')])
-            evals.append(_array_eval(field_name, slot_num))
-        else:
-            evals.append(_field_eval(f))
+    if fields is not None:
+        fields = [f for f in fields.split('/') if f]
+        for f in fields:
+            if '[' in f:
+                field_name, rest = f.split('[')
+                slot_num = int(rest[:rest.find(']')])
+                value = _array_eval(field_name, slot_num)
+                if value is not None:
+                    evals.append(value)
+            else:
+                value = _field_eval(f)
+                if value is not None:
+                    evals.append(value)
     return evals
