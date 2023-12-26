@@ -4,7 +4,7 @@ from rqt_gui.main import Main
 
 
 def main():
-    plugin = 'rqt_gauges_2.speedometer.Speedometer'
+    plugin = 'rqt_gauges.speedometer.Speedometer'
     main = Main(filename=plugin)
     sys.exit(main.main(sys.argv, standalone=plugin))
 

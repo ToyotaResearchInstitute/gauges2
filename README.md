@@ -1,6 +1,6 @@
 # gauges2
 
-`rqt_gauges_2` is and `rqt` Python plugin. It allows to create the different types of gauges:
+`rqt_gauges` is and `rqt` Python plugin. It allows to create the different types of gauges:
 
  - Speedometer
  - Steering wheel position
@@ -20,7 +20,7 @@ The following features are added to this widget:
 
 ```bash
 cd <workspace-with-the-package>
-colcon build --packages-select rqt_gauges_2
+colcon build --packages-select rqt_gauges
 source install/setup.bash
 ```
 
@@ -61,7 +61,7 @@ Go to the following path on the menu tab: Plugins -> Visualization ->
 Run the standalone node:
 
 ```bash
-ros2 run rqt_gauges_2 rqt_gauges_2
+ros2 run rqt_gauges rqt_gauges
 ```
 
 ## How to use it

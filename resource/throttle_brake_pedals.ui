@@ -891,7 +891,7 @@
   <customwidget>
    <class>TopicQLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>rqt_gauges_2.topic_q_line_edit.h</header>
+   <header>rqt_gauges.topic_q_line_edit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

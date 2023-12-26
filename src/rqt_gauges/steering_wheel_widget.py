@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.resources import get_resource
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
@@ -31,7 +31,7 @@ def get_topic_type(node, topic):
 
 def _array_eval(field_name, slot_num):
     """
-    Array evaluation.
+    Array Evaluation.
 
     :param field_name: name of field to index into, ``str``
     :param slot_num: index of slot to return, ``str``
@@ -67,17 +67,18 @@ def generate_field_evals(fields):
     return evals
 
 
-class SpeedometerWidget(QWidget):
+class SteeringWheelWidget(QWidget):
 
     def __init__(self, node):
         super().__init__()
-        self.setObjectName('Speedometer_widget')
+        self.setObjectName('SteeringWheel_widget')
 
         self.node = node
         self.sub = None
 
-        _, package_path = get_resource('packages', 'rqt_gauges_2')
-        ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2', 'resource', 'speedometer.ui')
+        _, package_path = get_resource('packages', 'rqt_gauges')
+        ui_file = os.path.join(package_path, 'share', 'rqt_gauges',
+                               'resource', 'steering_wheel.ui')
         loadUi(ui_file, self)
 
         self.topic_to_subscribe.setNode(self.node)
@@ -86,39 +87,7 @@ class SpeedometerWidget(QWidget):
         self._topic_completer.update_topics(self.node)
         self.topic_to_subscribe.setCompleter(self._topic_completer)
 
-        # Objects Properties
-        self.max_value.setAlignment(Qt.AlignCenter)
-        self.min_value.setAlignment(Qt.AlignCenter)
-
-        self.max_value.setPlaceholderText(str(self.speedometer_gauge.maxValue))
-        self.min_value.setPlaceholderText(str(self.speedometer_gauge.minValue))
-
-        # Signals Connection
-        self.min_value.textChanged.connect(self.updateMinValue)
-        self.max_value.textChanged.connect(self.updateMaxValue)
-        self.units.currentTextChanged.connect(self.updateUnits)
         self.subscribe_button.pressed.connect(self.updateSubscription)
-
-    @pyqtSlot()
-    def updateMinValue(self):
-        new_min_value = self.min_value.toPlainText()
-        if new_min_value.isnumeric():
-            self.speedometer_gauge.setMinValue(int(new_min_value))
-        else:
-            self.speedometer_gauge.setMinValue(0)
-
-    @pyqtSlot()
-    def updateMaxValue(self):
-        new_max_value = self.max_value.toPlainText()
-        if new_max_value.isnumeric():
-            self.speedometer_gauge.setMaxValue(int(new_max_value))
-        else:
-            self.speedometer_gauge.setMaxValue(180)
-
-    @pyqtSlot(str)
-    def updateUnits(self, new_units):
-        self.speedometer_gauge.units = new_units
-        self.speedometer_gauge.update()
 
     @pyqtSlot()
     def updateSubscription(self):
@@ -135,11 +104,11 @@ class SpeedometerWidget(QWidget):
             self.sub = self.node.create_subscription(
                 data_class,
                 topic_name,
-                self.speedometer_callback,
+                self.steering_wheel_callback,
                 10)
 
-    def speedometer_callback(self, msg):
+    def steering_wheel_callback(self, msg):
         value = msg
         for f in self.field_evals:
             value = f(value)
-        self.speedometer_gauge.updateValue(float(value))
+        self.steering_wheel_gauge.updateValue(float(value))
