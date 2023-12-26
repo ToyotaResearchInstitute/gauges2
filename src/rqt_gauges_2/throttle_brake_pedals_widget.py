@@ -103,4 +103,4 @@ class ThrottleBrakePedalsWidget(QWidget):
             else:
                 print('The brake pedal value is not between 0 and 1')
         else:
-            print('The throttle pedal value is not valid')
+            print('The brake pedal value is not valid')
