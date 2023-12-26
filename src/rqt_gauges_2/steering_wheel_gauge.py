@@ -25,7 +25,6 @@ class SteeringWheelGauge(QWidget):
         self.progress_width = 25
         self.progress_rounded_cap = True
         self.progress_color = 0x39F030
-        self.max_value = 45
         self.circle_max_angle = 135
         self.font_size = 40
         self.scale_font_size = 15
@@ -101,6 +100,21 @@ class SteeringWheelGauge(QWidget):
         self.value = value
         self.repaint()
 
+    def setMaxValue(self, max_value):
+        # Modifies the maximum value of the gauge
+        # Args:
+        #   max: Value to update the maximum value of the gauge.
+        if self.value > max_value:
+            self.value = max_value
+        if max_value <= self.minValue:
+            self.maxValue = self.minValue + 1
+            self.minValue = -self.maxValue + 1
+        else:
+            self.maxValue = max_value
+            self.minValue = -max_value
+
+        self.update()
+
     def draw_background_circle(self):
         painter = QPainter()
         painter.begin(self)
@@ -115,7 +129,7 @@ class SteeringWheelGauge(QWidget):
         width = self.width - self.progress_width
         height = self.height - self.progress_width
         margin = int(self.progress_width / 2)
-        value = int(self.value * self.circle_max_angle / self.max_value)
+        value = int(self.value * self.circle_max_angle / self.maxValue)
 
         # Draw Circle
         self.draw_background_circle()

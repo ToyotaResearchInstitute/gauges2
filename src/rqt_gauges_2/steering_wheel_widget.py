@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.resources import get_resource
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
@@ -30,7 +30,21 @@ class SteeringWheelWidget(QWidget):
         self._topic_completer.update_topics(self.node)
         self.topic_to_subscribe.setCompleter(self._topic_completer)
 
+        # Objects Properties
+        self.max_value.setAlignment(Qt.AlignCenter)
+
+        self.max_value.setPlaceholderText(str(self.steering_wheel_gauge.maxValue))
+
+        self.max_value.textChanged.connect(self.updateMaxValue)
         self.subscribe_button.pressed.connect(self.updateSubscription)
+
+    @pyqtSlot()
+    def updateMaxValue(self):
+        new_max_value = self.max_value.toPlainText()
+        if new_max_value.isnumeric():
+            self.steering_wheel_gauge.setMaxValue(int(new_max_value))
+        else:
+            self.steering_wheel_gauge.setMaxValue(45)
 
     @pyqtSlot()
     def updateSubscription(self):
