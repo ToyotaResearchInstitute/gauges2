@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>448</width>
-    <height>510</height>
+    <width>500</width>
+    <height>550</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>550</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>550</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>SteeringWheel</string>
@@ -112,6 +124,12 @@ p, li { white-space: pre-wrap; }
      <width>431</width>
      <height>401</height>
     </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>550</height>
+    </size>
    </property>
   </widget>
  </widget>
