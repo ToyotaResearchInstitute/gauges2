@@ -149,9 +149,9 @@ class SpeedometerGauge(QWidget):
         # Modifies the minimum value of the gauge
         # Args:
         #   min: Value to update the minimum value of the gauge.
-        if self.value < min:
-            self.value = min
-        if min >= self.maxValue:
+        if self.value < min_value:
+            self.value = min_value
+        if min_value >= self.maxValue:
             self.minValue = self.maxValue - 1
         else:
             self.minValue = min_value
@@ -162,9 +162,9 @@ class SpeedometerGauge(QWidget):
         # Modifies the maximum value of the gauge
         # Args:
         #   max: Value to update the maximum value of the gauge.
-        if self.value > max:
-            self.value = max
-        if max <= self.minValue:
+        if self.value > max_value:
+            self.value = max_value
+        if max_value <= self.minValue:
             self.maxValue = self.minValue + 1
         else:
             self.maxValue = max_value
