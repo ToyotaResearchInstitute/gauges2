@@ -81,18 +81,26 @@ class ThrottleBrakePedalsWidget(QWidget):
         value = msg
         for f in self.throttle_field_evals:
             value = f(value)
-        if value <= 1 and value >= 0:
-            self.throttle_pedal.setValue(int(value*100))
-            self.throttle_label.setText(str(value))
+        if value is not None and (type(value) == int or type(value) == float
+                                  or type(value) == str):
+            if value <= 1 and value >= 0:
+                self.throttle_pedal.setValue(int(value*100))
+                self.throttle_label.setText(str(value))
+            else:
+                print('The throttle pedal value is not between 0 and 1')
         else:
-            print('The throttle pedal value is not between 0 and 1')
+            print('The throttle pedal value is not valid')
 
     def brake_callback(self, msg):
         value = msg
         for f in self.brake_field_evals:
             value = f(value)
-        if value <= 1 and value >= 0:
-            self.brake_pedal.setValue(int(value*100))
-            self.brake_label.setText(str(value))
+        if value is not None and (type(value) == int or type(value) == float
+                                  or type(value) == str):
+            if value <= 1 and value >= 0:
+                self.brake_pedal.setValue(int(value*100))
+                self.brake_label.setText(str(value))
+            else:
+                print('The brake pedal value is not between 0 and 1')
         else:
-            print('The brake pedal value is not between 0 and 1')
+            print('The brake pedal value is not valid')

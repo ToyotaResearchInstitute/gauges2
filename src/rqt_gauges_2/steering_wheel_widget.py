@@ -54,4 +54,10 @@ class SteeringWheelWidget(QWidget):
         value = msg
         for f in self.field_evals:
             value = f(value)
-        self.steering_wheel_gauge.updateValue(float(value))
+        if value is not None:
+            if type(value) == int or type(value) == float or type(value) == str:
+                self.steering_wheel_gauge.updateValue(float(value))
+            else:
+                self.steering_wheel_gauge.updateValue(0)
+        else:
+            self.steering_wheel_gauge.updateValue(0)

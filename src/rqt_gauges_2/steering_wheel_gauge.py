@@ -98,6 +98,7 @@ class SteeringWheelGauge(QWidget):
         #   value: Value to update the gauge with.
         value = max(value, self.minValue)
         value = min(value, self.maxValue)
+        self.value = value
         self.repaint()
 
     def draw_background_circle(self):

@@ -72,7 +72,7 @@ class SpeedometerWidget(QWidget):
         topic_path = self.topic_to_subscribe.text()
         topic_type, topic_name, fields = get_topic_type(self.node, topic_path)
         self.field_evals = generate_field_evals(fields)
-        if topic_type is not None:
+        if topic_type is not None and self.field_evals is not None:
             print('Subscribing to:', topic_name, 'Type:', topic_type, 'Field:', fields)
             data_class = get_message(topic_type)
             self.sub = self.node.create_subscription(
@@ -85,4 +85,10 @@ class SpeedometerWidget(QWidget):
         value = msg
         for f in self.field_evals:
             value = f(value)
-        self.speedometer_gauge.updateValue(float(value))
+        if value is not None:
+            if type(value) == int or type(value) == float or type(value) == str:
+                self.speedometer_gauge.updateValue(float(value))
+            else:
+                self.speedometer_gauge.updateValue(self.speedometer_gauge.minValue)
+        else:
+            self.speedometer_gauge.updateValue(self.speedometer_gauge.minValue)
