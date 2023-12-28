@@ -19,8 +19,8 @@ class SteeringWheelWidget(QWidget):
         self.node = node
         self.sub = None
 
-        _, package_path = get_resource('packages', 'rqt_gauges_2')
-        ui_file = os.path.join(package_path, 'share', 'rqt_gauges_2',
+        _, package_path = get_resource('packages', 'rqt_gauges')
+        ui_file = os.path.join(package_path, 'share', 'rqt_gauges',
                                'resource', 'steering_wheel.ui')
         loadUi(ui_file, self)
 

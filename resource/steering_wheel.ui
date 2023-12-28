@@ -137,13 +137,13 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>SteeringWheelGauge</class>
    <extends>QWidget</extends>
-   <header>rqt_gauges_2.steering_wheel_gauge.h</header>
+   <header>rqt_gauges.steering_wheel_gauge.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>TopicQLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>rqt_gauges_2.topic_q_line_edit.h</header>
+   <header>rqt_gauges.topic_q_line_edit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

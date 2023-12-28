@@ -20,9 +20,9 @@ class ThrottleBrakePedalsWidget(QWidget):
         self.throttle_sub = None
         self.brake_sub = None
 
-        _, package_path = get_resource('packages', 'rqt_gauges_2')
+        _, package_path = get_resource('packages', 'rqt_gauges')
         ui_file = os.path.join(package_path, 'share',
-                               'rqt_gauges_2', 'resource', 'throttle_brake_pedals.ui')
+                               'rqt_gauges', 'resource', 'throttle_brake_pedals.ui')
         loadUi(ui_file, self)
 
         # Throttle Topic Completer

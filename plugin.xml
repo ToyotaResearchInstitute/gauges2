@@ -1,5 +1,5 @@
 <library path="src">
-  <class name="Speedometer" type="rqt_gauges_2.speedometer.Speedometer" base_class_type="rqt_gui_py::Plugin">
+  <class name="Speedometer" type="rqt_gauges.speedometer.Speedometer" base_class_type="rqt_gui_py::Plugin">
     <description>
       A Visualization tool that shows the "speed" according to a topic.
     </description>
@@ -14,7 +14,7 @@
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>
   </class>
-  <class name="SteeringWheel" type="rqt_gauges_2.steering_wheel.SteeringWheel" base_class_type="rqt_gui_py::Plugin">
+  <class name="SteeringWheel" type="rqt_gauges.steering_wheel.SteeringWheel" base_class_type="rqt_gui_py::Plugin">
     <description>
       A Visualization tool to keep track of the steering angle.
     </description>
@@ -29,7 +29,7 @@
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>
   </class>
-  <class name="ThrottleBrakePedals" type="rqt_gauges_2.throttle_brake_pedals.ThrottleBrakePedals" base_class_type="rqt_gui_py::Plugin">
+  <class name="ThrottleBrakePedals" type="rqt_gauges.throttle_brake_pedals.ThrottleBrakePedals" base_class_type="rqt_gui_py::Plugin">
     <description>
       A Visualization tool that shows how much of the throttle and brake pedals are being pressed (0-1).
     </description>
