@@ -1,4 +1,4 @@
-# gauges2
+# RQT gauges
 
 `rqt_gauges` is and `rqt` Python plugin. It allows to create the different types of gauges:
 
