@@ -159,7 +159,7 @@ class SteeringWheelGauge(QWidget):
         # Create Gauge Text
         pen.setColor(QColor(self.text_color))
         painter.setPen(pen)
-        painter.drawText(rect, Qt.AlignCenter, f'{self.value}{self.suffix}')
+        painter.drawText(rect, Qt.AlignCenter, f'{self.value:.2f}{self.suffix}')
         # End Painter
         painter.end()
 
