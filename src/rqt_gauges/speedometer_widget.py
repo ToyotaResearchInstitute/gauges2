@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.resources import get_resource
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSlot, Qt, Slot
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
@@ -41,6 +41,19 @@ class SpeedometerWidget(QWidget):
         self.max_value.textChanged.connect(self.updateMaxValue)
         self.units.currentTextChanged.connect(self.updateUnits)
         self.subscribe_button.pressed.connect(self.updateSubscription)
+
+    def dragEnterEvent(self, event):
+        event.accept()
+
+    def dropEvent(self, event):
+        if event.mimeData().hasText():
+            topic_name = str(event.mimeData().text())
+        else:
+            droped_item = event.source().selectedItems()[0]
+            topic_name = str(droped_item.data(0, Qt.UserRole))
+        self.topic_to_subscribe.setText(topic_name)
+        self.updateSubscription()
+        event.accept()
 
     @pyqtSlot()
     def updateMinValue(self):
