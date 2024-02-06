@@ -1,6 +1,6 @@
 import math
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, QPoint, QPointF, Qt
+from PyQt5.QtCore import pyqtSignal, QObject, QPoint, QPointF, Qt
 from PyQt5.QtGui import (QColor, QConicalGradient, QFont, QFontMetrics, QPainter, QPen,
                          QPolygon, QPolygonF, QRadialGradient)
 from PyQt5.QtWidgets import QWidget
