@@ -82,9 +82,7 @@ class SpeedometerGauge(QWidget):
         self.gauge_color_outer_radius_factor = 1
         self.gauge_color_inner_radius_factor = 0.9
 
-        # self.update()
         self.setGaugeTheme()
-        # self.rescale_method()
 
     def setGaugeTheme(self):
         # This method defines the theme of the gauge, it is used to stablish the colors for each
