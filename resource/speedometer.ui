@@ -22,6 +22,12 @@
     <height>500</height>
    </size>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
    <string>Speedometer</string>
   </property>
@@ -153,6 +159,9 @@ p, li { white-space: pre-wrap; }
      <height>411</height>
     </rect>
    </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="units_label">
    <property name="geometry">
@@ -210,6 +219,9 @@ p, li { white-space: pre-wrap; }
      <width>241</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

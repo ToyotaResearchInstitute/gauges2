@@ -43,6 +43,19 @@ class SpeedometerWidget(QWidget):
         self.subscribe_button.pressed.connect(self.updateSubscription)
         self.speedometer_gauge.updateValueSignal.connect(self.updateValue)
 
+    def dragEnterEvent(self, event):
+        event.accept()
+
+    def dropEvent(self, event):
+        if event.mimeData().hasText():
+            topic_name = str(event.mimeData().text())
+        else:
+            droped_item = event.source().selectedItems()[0]
+            topic_name = str(droped_item.data(0, Qt.UserRole))
+        self.topic_to_subscribe.setText(topic_name)
+        self.updateSubscription()
+        event.accept()
+
     @pyqtSlot()
     def updateMinValue(self):
         new_min_value = self.min_value.toPlainText()

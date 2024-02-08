@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.resources import get_resource
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
@@ -45,6 +45,24 @@ class ThrottleBrakePedalsWidget(QWidget):
         self.brake_subscribe.pressed.connect(self.brakeUpdateSubscription)
         self.updateThrottleValueSignal.connect(self.updateThrottle)
         self.updateBrakeValueSignal.connect(self.updateBrake)
+
+    def dragEnterEvent(self, event):
+        event.accept()
+
+    def dropEvent(self, event):
+        if event.mimeData().hasText():
+            topic_name = str(event.mimeData().text())
+        else:
+            droped_item = event.source().selectedItems()[0]
+            topic_name = str(droped_item.data(0, Qt.UserRole))
+
+        if (event.pos().x() < self.size().width() / 2):
+            self.throttle_topic_to_subscribe.setText(topic_name)
+            self.throttleUpdateSubscription()
+        else:
+            self.brake_topic_to_subscribe.setText(topic_name)
+            self.brakeUpdateSubscription()
+        event.accept()
 
     @pyqtSlot()
     def throttleUpdateSubscription(self):
