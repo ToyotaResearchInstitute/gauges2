@@ -1,6 +1,6 @@
 import math
 
-from PyQt5.QtCore import QObject, QPoint, QPointF, Qt
+from PyQt5.QtCore import pyqtSignal, QObject, QPoint, QPointF, Qt
 from PyQt5.QtGui import (QColor, QConicalGradient, QFont, QFontMetrics, QPainter, QPen,
                          QPolygon, QPolygonF, QRadialGradient)
 from PyQt5.QtWidgets import QWidget
@@ -12,6 +12,8 @@ class SpeedometerGauge(QWidget):
     # a car Speedometer. It has the ability to modify the minimum and maximum values of the
     # gauge and the units the numbers are displaying. The class contains methods used to modify
     # the values explained before, the marked number of the gauge and the whole design as well.
+
+    updateValueSignal = pyqtSignal(float)
 
     def __init__(self, parent=None):
         # Constructor method of the class, initializes all the variables needed to create
@@ -80,9 +82,7 @@ class SpeedometerGauge(QWidget):
         self.gauge_color_outer_radius_factor = 1
         self.gauge_color_inner_radius_factor = 0.9
 
-        self.update()
         self.setGaugeTheme()
-        self.rescale_method()
 
     def setGaugeTheme(self):
         # This method defines the theme of the gauge, it is used to stablish the colors for each
@@ -227,6 +227,7 @@ class SpeedometerGauge(QWidget):
         painter_filled_polygon.setBrush(grad)
 
         painter_filled_polygon.drawPolygon(colored_scale_polygon)
+        painter_filled_polygon.end()
 
     def draw_big_scaled_marker(self):
         my_painter = QPainter(self)
@@ -245,6 +246,7 @@ class SpeedometerGauge(QWidget):
         for i in range(self.scalaCount+1):
             my_painter.drawLine(int(scale_line_lenght), 0, int(scale_line_outer_start), 0)
             my_painter.rotate(steps_size)
+        my_painter.end()
 
     def create_scale_marker_values_text(self):
         painter = QPainter(self)
@@ -275,6 +277,7 @@ class SpeedometerGauge(QWidget):
 
             text = [x - int(w/2), y - int(h/2), int(w), int(h), Qt.AlignCenter, text]
             painter.drawText(text[0], text[1], text[2], text[3], text[4], text[5])
+        painter.end()
 
     def create_fine_scaled_marker(self):
         my_painter = QPainter(self)
@@ -290,6 +293,7 @@ class SpeedometerGauge(QWidget):
         for i in range((self.scalaCount * self.scala_subdiv_count)+1):
             my_painter.drawLine(int(scale_line_lenght), 0, int(scale_line_outer_start), 0)
             my_painter.rotate(steps_size)
+        my_painter.end()
 
     def create_value_text(self):
         painter = QPainter(self)
@@ -317,6 +321,7 @@ class SpeedometerGauge(QWidget):
         y = int(text_radius * math.sin(math.radians(angle)))
         text = [x - int(w/2), y - int(h/2), int(w), int(h), Qt.AlignCenter, text]
         painter.drawText(text[0], text[1], text[2], text[3], text[4], text[5])
+        painter.end()
 
     def create_units_text(self):
         painter = QPainter(self)
@@ -345,6 +350,7 @@ class SpeedometerGauge(QWidget):
         y = int(text_radius * math.sin(math.radians(angle)))
         text = [x - int(w/2), y - int(h/2), int(w), int(h), Qt.AlignCenter, text]
         painter.drawText(text[0], text[1], text[2], text[3], text[4], text[5])
+        painter.end()
 
     def draw_big_needle_center_point(self):
         painter = QPainter(self)
@@ -363,6 +369,7 @@ class SpeedometerGauge(QWidget):
         painter.setBrush(grad)
 
         painter.drawPolygon(colored_scale_polygon)
+        painter.end()
 
     def draw_outer_circle(self):
         painter = QPainter(self)
@@ -381,6 +388,7 @@ class SpeedometerGauge(QWidget):
         painter.setBrush(radialGradient)
 
         painter.drawPolygon(colored_scale_polygon)
+        painter.end()
 
     def draw_needle(self):
         painter = QPainter(self)
@@ -391,10 +399,10 @@ class SpeedometerGauge(QWidget):
                         (self.maxValue - self.minValue)) + 90 + self.scale_angle_start_value)
 
         painter.drawConvexPolygon(self.value_needle[0])
+        painter.end()
 
     def resizeEvent(self, event):
         self.rescale_method()
-        pass
 
     def paintEvent(self, event):
 

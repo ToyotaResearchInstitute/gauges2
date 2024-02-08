@@ -41,6 +41,7 @@ class SpeedometerWidget(QWidget):
         self.max_value.textChanged.connect(self.updateMaxValue)
         self.units.currentTextChanged.connect(self.updateUnits)
         self.subscribe_button.pressed.connect(self.updateSubscription)
+        self.speedometer_gauge.updateValueSignal.connect(self.updateValue)
 
     def dragEnterEvent(self, event):
         event.accept()
@@ -71,6 +72,10 @@ class SpeedometerWidget(QWidget):
         else:
             self.speedometer_gauge.setMaxValue(180)
 
+    @pyqtSlot(float)
+    def updateValue(self, value):
+        self.speedometer_gauge.updateValue(value)
+
     @pyqtSlot(str)
     def updateUnits(self, new_units):
         self.speedometer_gauge.units = new_units
@@ -100,8 +105,8 @@ class SpeedometerWidget(QWidget):
             value = f(value)
         if value is not None:
             if type(value) == int or type(value) == float or type(value) == str:
-                self.speedometer_gauge.updateValue(float(value))
+                self.speedometer_gauge.updateValueSignal.emit(float(value))
             else:
-                self.speedometer_gauge.updateValue(self.speedometer_gauge.minValue)
+                self.speedometer_gauge.updateValueSignal.emit(self.speedometer_gauge.minValue)
         else:
-            self.speedometer_gauge.updateValue(self.speedometer_gauge.minValue)
+            self.speedometer_gauge.updateValueSignal.emit(self.speedometer_gauge.minValue)

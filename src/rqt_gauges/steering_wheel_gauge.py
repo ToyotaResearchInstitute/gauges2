@@ -1,6 +1,6 @@
 import math
 
-from PyQt5.QtCore import QRect, Qt
+from PyQt5.QtCore import pyqtSignal, QRect, Qt
 from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QPainter, QPen
 from PyQt5.QtWidgets import QWidget
 
@@ -12,6 +12,8 @@ class SteeringWheelGauge(QWidget):
     # of the gauge and the units the numbers are displaying. The class contains
     # methods used to modify the values explained before, the marked number of the gauge
     # and the whole design as well.
+
+    updateValueSignal = pyqtSignal(float)
 
     def __init__(self, parent=None):
         # Constructor method of the class, initializes all the variables needed to create

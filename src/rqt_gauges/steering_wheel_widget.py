@@ -37,6 +37,7 @@ class SteeringWheelWidget(QWidget):
 
         self.max_value.textChanged.connect(self.updateMaxValue)
         self.subscribe_button.pressed.connect(self.updateSubscription)
+        self.steering_wheel_gauge.updateValueSignal.connect(self.updateValue)
 
     def dragEnterEvent(self, event):
         event.accept()
@@ -77,14 +78,18 @@ class SteeringWheelWidget(QWidget):
                 self.steering_wheel_callback,
                 10)
 
+    @pyqtSlot(float)
+    def updateValue(self, value):
+        self.steering_wheel_gauge.updateValue(value)
+
     def steering_wheel_callback(self, msg):
         value = msg
         for f in self.field_evals:
             value = f(value)
         if value is not None:
             if type(value) == int or type(value) == float or type(value) == str:
-                self.steering_wheel_gauge.updateValue(float(value))
+                self.steering_wheel_gauge.updateValueSignal.emit(float(value))
             else:
-                self.steering_wheel_gauge.updateValue(0)
+                self.steering_wheel_gauge.updateValueSignal.emit(0.0)
         else:
-            self.steering_wheel_gauge.updateValue(0)
+            self.steering_wheel_gauge.updateValueSignal.emit(0.0)
