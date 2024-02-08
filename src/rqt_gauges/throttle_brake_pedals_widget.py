@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.resources import get_resource
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
@@ -11,6 +11,9 @@ from .utils import generate_field_evals, get_topic_type
 
 
 class ThrottleBrakePedalsWidget(QWidget):
+
+    updateThrottleValueSignal = pyqtSignal(int)
+    updateBrakeValueSignal = pyqtSignal(int)
 
     def __init__(self, node):
         super().__init__()
@@ -40,6 +43,8 @@ class ThrottleBrakePedalsWidget(QWidget):
         # Signals Connection
         self.throttle_subscribe.pressed.connect(self.throttleUpdateSubscription)
         self.brake_subscribe.pressed.connect(self.brakeUpdateSubscription)
+        self.updateThrottleValueSignal.connect(self.updateThrottle)
+        self.updateBrakeValueSignal.connect(self.updateBrake)
 
     @pyqtSlot()
     def throttleUpdateSubscription(self):
@@ -58,6 +63,16 @@ class ThrottleBrakePedalsWidget(QWidget):
                 topic_name,
                 self.throttle_callback,
                 10)
+
+    @pyqtSlot(int)
+    def updateThrottle(self, value):
+        self.throttle_pedal.setValue(value)
+        self.throttle_label.setText(str(value / 100.0))
+
+    @pyqtSlot(int)
+    def updateBrake(self, value):
+        self.brake_pedal.setValue(value)
+        self.brake_label.setText(str(value / 100.0))
 
     @pyqtSlot()
     def brakeUpdateSubscription(self):
@@ -84,8 +99,7 @@ class ThrottleBrakePedalsWidget(QWidget):
         if value is not None and (type(value) == int or type(value) == float
                                   or type(value) == str):
             if value <= 1 and value >= 0:
-                self.throttle_pedal.setValue(int(value*100))
-                self.throttle_label.setText(str(value))
+                self.updateThrottleValueSignal.emit(int(value*100))
             else:
                 print('The throttle pedal value is not between 0 and 1')
         else:
@@ -98,8 +112,7 @@ class ThrottleBrakePedalsWidget(QWidget):
         if value is not None and (type(value) == int or type(value) == float
                                   or type(value) == str):
             if value <= 1 and value >= 0:
-                self.brake_pedal.setValue(int(value*100))
-                self.brake_label.setText(str(value))
+                self.updateBrakeValueSignal.emit(int(value*100))
             else:
                 print('The brake pedal value is not between 0 and 1')
         else:
