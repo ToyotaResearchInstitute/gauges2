@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.resources import get_resource
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
 from rosidl_runtime_py.utilities import get_message
