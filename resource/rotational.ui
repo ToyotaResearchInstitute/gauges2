@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SteeringWheel</class>
- <widget class="QWidget" name="SteeringWheel">
+ <class>Rotational</class>
+ <widget class="QWidget" name="Rotational">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,7 +26,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>SteeringWheel</string>
+   <string>Rotational</string>
   </property>
   <widget class="QTextEdit" name="max_value">
    <property name="enabled">
@@ -119,7 +119,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
   </widget>
-  <widget class="SteeringWheelGauge" name="steering_wheel_gauge" native="true">
+  <widget class="RotationalGauge" name="rotational_gauge" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -138,9 +138,9 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SteeringWheelGauge</class>
+   <class>RotationalGauge</class>
    <extends>QWidget</extends>
-   <header>rqt_gauges.steering_wheel_gauge.h</header>
+   <header>rqt_gauges.rotational_gauge.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

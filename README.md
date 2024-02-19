@@ -3,7 +3,7 @@
 `rqt_gauges` is and `rqt` Python plugin. It allows to create the different types of gauges:
 
  - Dial
- - Steering wheel position
+ - Rotational
  - Bar
 
 **Note**: This package is still not released in any ROS distribution.
@@ -44,7 +44,7 @@ Go to the following path on the menu tab: Plugins -> Visualization ->
     <img src="img/speedometer.png">
 </center>
 
-### Steering wheel
+### Rotational
 
 <center>
     <img src="img/steering_wheel.png">

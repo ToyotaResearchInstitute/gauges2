@@ -13,7 +13,7 @@ setup(
         ('share/' + package_name + '/resource',
             ['resource/dial.ui']),
         ('share/' + package_name + '/resource',
-            ['resource/steering_wheel.ui']),
+            ['resource/rotational.ui']),
         ('share/' + package_name + '/resource',
             ['resource/bar_gauge.ui']),
         ('share/' + package_name, ['package.xml']),
