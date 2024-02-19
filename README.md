@@ -2,18 +2,18 @@
 
 `rqt_gauges` is and `rqt` Python plugin. It allows to create the different types of gauges:
 
- - Speedometer
+ - Dial
  - Steering wheel position
  - Brake and throttle
 
-**Note**: This package is still not released in any ros distribution.
+**Note**: This package is still not released in any ROS distribution.
 
 These widget are expected to be able to subscribe to a specific topic and select a field from that topic to show on the gauge UI.
 The following features are added to this widget:
 
  - Show the value of the specified topic field
  - Modify the minimum and maximum value of the gauge
- - Modify the units of the speedometer
+ - Modify the units of the dial
 
 
 ## How to compile it
@@ -38,7 +38,7 @@ Go to the following path on the menu tab: Plugins -> Visualization ->
     <img src="img/rqt.png">
 </center>
 
-### Speedometer
+### Dial
 
 <center>
     <img src="img/speedometer.png">

@@ -1,7 +1,7 @@
 <library path="src">
-  <class name="Speedometer" type="rqt_gauges.speedometer.Speedometer" base_class_type="rqt_gui_py::Plugin">
+  <class name="Dial" type="rqt_gauges.dial.Dial" base_class_type="rqt_gui_py::Plugin">
     <description>
-      A Visualization tool that shows the "speed" according to a topic.
+      A dial visualization tool according to a topic.
     </description>
     <qtgui>
       <group>
@@ -9,7 +9,7 @@
         <icon type="theme">folder</icon>
         <statustip>Plugins related to visualization.</statustip>
       </group>
-      <label>Speedometer</label>
+      <label>Dial</label>
       <icon type="theme">utilities-system-monitor</icon>
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>

@@ -1,16 +1,16 @@
 from qt_gui.plugin import Plugin
 
-from .speedometer_widget import SpeedometerWidget
+from .dial_widget import DialWidget
 
 
-class Speedometer(Plugin):
+class Dial(Plugin):
 
     def __init__(self, context):
         super().__init__(context)
-        self.setObjectName('Speedometer')
+        self.setObjectName('Dial')
 
         self._context = context
         self._node = context.node
 
-        self._widget = SpeedometerWidget(self._node)
+        self._widget = DialWidget(self._node)
         context.add_widget(self._widget)

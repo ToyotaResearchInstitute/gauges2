@@ -11,7 +11,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name + '/resource',
-            ['resource/speedometer.ui']),
+            ['resource/dial.ui']),
         ('share/' + package_name + '/resource',
             ['resource/steering_wheel.ui']),
         ('share/' + package_name + '/resource',
