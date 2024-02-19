@@ -6,7 +6,12 @@
  - Steering wheel position
  - Bar
 
-**Note**: This package is still not released in any ros distribution.
+
+ROS2 Distro | Build Status | Package build |
+:---------: | :----: | :----------: |
+Rolling |  [![Build Status](https://build.ros2.org/buildStatus/icon?job=Rdev__rqt_gauges__ubuntu_jammy_amd64)](https://build.ros2.org/job/Rdev__rqt_gauges__ubuntu_jammy_amd64/) |  [![Build Status](https://build.ros2.org/buildStatus/icon?job=Rbin_uJ64__rqt_gauges__ubuntu_jammy_amd64__binary)](https://build.ros2.org/job/Rbin_uJ64__rqt_gauges__ubuntu_jammy_amd64__binary/) |
+Iron |  [![Build Status](https://build.ros2.org/buildStatus/icon?job=Idev__rqt_gauges__ubuntu_jammy_amd64)](https://build.ros2.org/job/Idev__rqt_gauges__ubuntu_jammy_amd64/) |  [![Build Status](https://build.ros2.org/buildStatus/icon?job=Ibin_uJ64__rqt_gauges__ubuntu_jammy_amd64__binary)](https://build.ros2.org/job/Ibin_uJ64__rqt_gauges__ubuntu_jammy_amd64__binary/) |
+Humble |  [![Build Status](https://build.ros2.org/buildStatus/icon?job=Hdev__rqt_gauges__ubuntu_jammy_amd64)](https://build.ros2.org/job/Hdev__rqt_gauges__ubuntu_jammy_amd64/) |  [![Build Status](https://build.ros2.org/buildStatus/icon?job=Hbin_uJ64__rqt_gauges__ubuntu_jammy_amd64__binary)](https://build.ros2.org/job/Hbin_uJ64__rqt_gauges__ubuntu_jammy_amd64__binary/) |
 
 These widget are expected to be able to subscribe to a specific topic and select a field from that topic to show on the gauge UI.
 The following features are added to this widget:
