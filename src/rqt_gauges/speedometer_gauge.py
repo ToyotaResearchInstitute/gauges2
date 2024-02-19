@@ -34,6 +34,7 @@ class SpeedometerGauge(QWidget):
 
         self.minValue = 0
         self.maxValue = 180
+        self.raw_value = self.minValue
         self.value = self.minValue
         self.value_offset = 0
         self.valueNeedleSnapzone = 0.05
@@ -136,6 +137,8 @@ class SpeedometerGauge(QWidget):
         # Updates the value that the gauge is indicating.
         # Args:
         #   value: Value to update the gauge with.
+
+        self.raw_value = value
 
         if value <= self.minValue:
             self.value = self.minValue
@@ -309,7 +312,7 @@ class SpeedometerGauge(QWidget):
         painter.setPen(pen_shadow)
 
         text_radius = self.widget_diameter / 2 * self.text_radius_factor
-        text = str(int(self.value))
+        text = str(int(self.raw_value))
         w = fm.width(text) + 1
         h = fm.height()
         painter.setFont(QFont(self.value_fontname, self.value_fontsize, QFont.Bold))

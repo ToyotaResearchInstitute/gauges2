@@ -12,8 +12,8 @@ from .utils import generate_field_evals, get_topic_type
 
 class ThrottleBrakePedalsWidget(QWidget):
 
-    updateThrottleValueSignal = pyqtSignal(int)
-    updateBrakeValueSignal = pyqtSignal(int)
+    updateThrottleValueSignal = pyqtSignal(int, int)
+    updateBrakeValueSignal = pyqtSignal(int, int)
 
     def __init__(self, node):
         super().__init__()
@@ -82,15 +82,15 @@ class ThrottleBrakePedalsWidget(QWidget):
                 self.throttle_callback,
                 10)
 
-    @pyqtSlot(int)
-    def updateThrottle(self, value):
+    @pyqtSlot(int, int)
+    def updateThrottle(self, value, raw_value):
         self.throttle_pedal.setValue(value)
-        self.throttle_label.setText(str(value / 100.0))
+        self.throttle_label.setText(str(raw_value / 100.0))
 
-    @pyqtSlot(int)
-    def updateBrake(self, value):
+    @pyqtSlot(int, int)
+    def updateBrake(self, value, raw_value):
         self.brake_pedal.setValue(value)
-        self.brake_label.setText(str(value / 100.0))
+        self.brake_label.setText(str(raw_value / 100.0))
 
     @pyqtSlot()
     def brakeUpdateSubscription(self):
@@ -116,10 +116,15 @@ class ThrottleBrakePedalsWidget(QWidget):
             value = f(value)
         if value is not None and (type(value) == int or type(value) == float
                                   or type(value) == str):
-            if value <= 1 and value >= 0:
-                self.updateThrottleValueSignal.emit(int(value*100))
-            else:
+            raw_value = int(value*100)
+            if value < 0:
+                value = 0
                 print('The throttle pedal value is not between 0 and 1')
+            elif value > 1:
+                value = 1
+                print('The throttle pedal value is not between 0 and 1')
+
+            self.updateThrottleValueSignal.emit(int(value*100), raw_value)
         else:
             print('The throttle pedal value is not valid')
 
@@ -129,9 +134,14 @@ class ThrottleBrakePedalsWidget(QWidget):
             value = f(value)
         if value is not None and (type(value) == int or type(value) == float
                                   or type(value) == str):
-            if value <= 1 and value >= 0:
-                self.updateBrakeValueSignal.emit(int(value*100))
-            else:
+            raw_value = int(value*100)
+            if value < 0:
+                value = 0
                 print('The brake pedal value is not between 0 and 1')
+            elif value > 1:
+                value = 1
+                print('The brake pedal value is not between 0 and 1')
+
+            self.updateBrakeValueSignal.emit(int(value*100), raw_value)
         else:
             print('The brake pedal value is not valid')
