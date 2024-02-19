@@ -29,9 +29,9 @@
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>
   </class>
-  <class name="ThrottleBrakePedals" type="rqt_gauges.throttle_brake_pedals.ThrottleBrakePedals" base_class_type="rqt_gui_py::Plugin">
+  <class name="BarGauge" type="rqt_gauges.bar_gauge.BarGauge" base_class_type="rqt_gui_py::Plugin">
     <description>
-      A Visualization tool that shows how much of the throttle and brake pedals are being pressed (0-1).
+      A bar visualization tool.
     </description>
     <qtgui>
       <group>
@@ -39,7 +39,7 @@
         <icon type="theme">folder</icon>
         <statustip>Plugins related to visualization.</statustip>
       </group>
-      <label>Throttle and Brake Pedals</label>
+      <label>Bar gauge</label>
       <icon type="theme">utilities-system-monitor</icon>
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>
