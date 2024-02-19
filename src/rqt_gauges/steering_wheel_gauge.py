@@ -21,6 +21,7 @@ class SteeringWheelGauge(QWidget):
 
         super().__init__(parent)
 
+        self.raw_value = 0
         self.value = 0
         self.width = 400
         self.height = 400
@@ -97,6 +98,7 @@ class SteeringWheelGauge(QWidget):
         # Updates the value that the gauge is indicating.
         # Args:
         #   value: Value to update the gauge with.
+        self.raw_value = value
         value = max(value, self.minValue)
         value = min(value, self.maxValue)
         self.value = value
@@ -161,7 +163,7 @@ class SteeringWheelGauge(QWidget):
         # Create Gauge Text
         pen.setColor(QColor(self.text_color))
         painter.setPen(pen)
-        painter.drawText(rect, Qt.AlignCenter, f'{self.value:.2f}{self.suffix}')
+        painter.drawText(rect, Qt.AlignCenter, f'{self.raw_value:.2f}{self.suffix}')
         # End Painter
         painter.end()
 
