@@ -4,7 +4,7 @@
 
  - Dial
  - Steering wheel position
- - Brake and throttle
+ - Bar
 
 **Note**: This package is still not released in any ROS distribution.
 
@@ -50,10 +50,10 @@ Go to the following path on the menu tab: Plugins -> Visualization ->
     <img src="img/steering_wheel.png">
 </center>
 
-### Brake and throttle
+### Bar
 
 <center>
-    <img src="img/ThrottleBrakePedal.png">
+    <img src="img/bar.png">
 </center>
 
 ## Standalone Plugin

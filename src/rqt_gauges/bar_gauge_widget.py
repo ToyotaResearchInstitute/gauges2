@@ -91,4 +91,3 @@ class BarGaugeWidget(QWidget):
             self.updateValueSignal.emit(int(value*100), raw_value)
         else:
             print('The value is not valid')
-
