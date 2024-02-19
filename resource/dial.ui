@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Speedometer</class>
- <widget class="QWidget" name="Speedometer">
+ <class>Dial</class>
+ <widget class="QWidget" name="Dial">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Speedometer</string>
+   <string>Dial</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -150,7 +150,7 @@ p, li { white-space: pre-wrap; }
     <string>Topic:</string>
    </property>
   </widget>
-  <widget class="SpeedometerGauge" name="speedometer_gauge" native="true">
+  <widget class="DialGauge" name="dial_gauge" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -227,9 +227,9 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SpeedometerGauge</class>
+   <class>DialGauge</class>
    <extends>QWidget</extends>
-   <header>rqt_gauges.speedometer_gauge.h</header>
+   <header>rqt_gauges.dial_gauge.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
