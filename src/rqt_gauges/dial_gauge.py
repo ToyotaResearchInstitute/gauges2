@@ -6,10 +6,10 @@ from PyQt5.QtGui import (QColor, QConicalGradient, QFont, QFontMetrics, QPainter
 from PyQt5.QtWidgets import QWidget
 
 
-class SpeedometerGauge(QWidget):
+class DialGauge(QWidget):
     # This class creates a gauge object that contains several elements such as a needle,
     # big and small scales and different circles painted with different colors to look like
-    # a car Speedometer. It has the ability to modify the minimum and maximum values of the
+    # a dial. It has the ability to modify the minimum and maximum values of the
     # gauge and the units the numbers are displaying. The class contains methods used to modify
     # the values explained before, the marked number of the gauge and the whole design as well.
 
@@ -61,7 +61,7 @@ class SpeedometerGauge(QWidget):
         self.initial_scale_fontsize = 14
         self.scale_fontsize = self.initial_scale_fontsize
 
-        # Speed Text Attributes
+        # Value Text Attributes
         self.enable_value_text = True
         self.value_fontname = 'Verdana'
         self.initial_value_fontsize = 40

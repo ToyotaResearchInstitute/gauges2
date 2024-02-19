@@ -5,13 +5,8 @@ from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QPainter, QPen
 from PyQt5.QtWidgets import QWidget
 
 
-class SteeringWheelGauge(QWidget):
-    # This class creates a gauge object that contains several elements such as a needle,
-    # big and small scales and different circles painted with different colors to look
-    # like a car Speedometer. It has the ability to modify the minimum and maximum values
-    # of the gauge and the units the numbers are displaying. The class contains
-    # methods used to modify the values explained before, the marked number of the gauge
-    # and the whole design as well.
+class RotationalGauge(QWidget):
+    # This class creates a rotational gauge.
 
     updateValueSignal = pyqtSignal(float)
 
