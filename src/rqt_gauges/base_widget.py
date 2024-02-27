@@ -29,14 +29,14 @@ class BaseWidget(QWidget):
         self.min_value.setAlignment(Qt.AlignCenter)
 
         try:
-            getattr(self.gauge, "maxValue")
+            getattr(self.gauge, 'maxValue')
             self.max_value.setPlaceholderText(str(self.gauge.maxValue))
             self.max_value.textChanged.connect(self.updateMaxValue)
         except AttributeError:
             print("obj does not have attribute 'maxValue'")
 
         try:
-            getattr(self.gauge, "minValue")
+            getattr(self.gauge, 'minValue')
             self.min_value.setPlaceholderText(str(self.gauge.minValue))
             self.min_value.textChanged.connect(self.updateMinValue)
         except AttributeError:
