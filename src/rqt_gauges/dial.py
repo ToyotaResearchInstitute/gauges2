@@ -1,6 +1,9 @@
+import os
+
+from ament_index_python.resources import get_resource
 from qt_gui.plugin import Plugin
 
-from .dial_widget import DialWidget
+from .base_widget import BaseWidget
 
 
 class Dial(Plugin):
@@ -12,5 +15,7 @@ class Dial(Plugin):
         self._context = context
         self._node = context.node
 
-        self._widget = DialWidget(self._node)
+        _, package_path = get_resource('packages', 'rqt_gauges')
+        ui_file = os.path.join(package_path, 'share', 'rqt_gauges', 'resource', 'dial.ui')
+        self._widget = BaseWidget(self._node, 'Dial_widget', ui_file)
         context.add_widget(self._widget)

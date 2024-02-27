@@ -150,7 +150,7 @@ p, li { white-space: pre-wrap; }
     <string>Topic:</string>
    </property>
   </widget>
-  <widget class="DialGauge" name="dial_gauge" native="true">
+  <widget class="DialGauge" name="gauge" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>

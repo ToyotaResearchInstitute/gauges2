@@ -99,6 +99,19 @@ class RotationalGauge(QWidget):
         self.value = value
         self.repaint()
 
+    def setMinValue(self, min_value):
+        # Modifies the minimum value of the gauge
+        # Args:
+        #   min: Value to update the minimum value of the gauge.
+        if self.value < min_value:
+            self.value = min_value
+        if min_value >= self.maxValue:
+            self.minValue = self.maxValue - 1
+        else:
+            self.minValue = min_value
+
+        self.update()
+
     def setMaxValue(self, max_value):
         # Modifies the maximum value of the gauge
         # Args:
@@ -107,10 +120,8 @@ class RotationalGauge(QWidget):
             self.value = max_value
         if max_value <= self.minValue:
             self.maxValue = self.minValue + 1
-            self.minValue = -self.maxValue + 1
         else:
             self.maxValue = max_value
-            self.minValue = -max_value
 
         self.update()
 
