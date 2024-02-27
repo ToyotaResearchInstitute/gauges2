@@ -41,7 +41,7 @@ class BaseWidget(QWidget):
             self.min_value.textChanged.connect(self.updateMinValue)
         except AttributeError:
             print("obj does not have attribute 'minValue'")
-        
+
         # Signals Connection
         self.subscribe_button.pressed.connect(self.updateSubscription)
         self.gauge.updateValueSignal.connect(self.updateValue)
