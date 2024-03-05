@@ -27,7 +27,7 @@ class BarGauge(QWidget):
         self.valueLabel = QLabel(parent)
         self.valueLabel.setGeometry(65, 425, 221, 61)
         self.valueLabel.setAlignment(Qt.AlignCenter)
-        self.valueLabel.setStyleSheet("QLabel{font-size: 25pt;}")
+        self.valueLabel.setStyleSheet('QLabel{font-size: 25pt;}')
         self.valueLabel.setText('0.0')
 
     def updateValue(self, value: float):
@@ -40,7 +40,7 @@ class BarGauge(QWidget):
         self.value = value
         self.bar.setValue(int(self.value))
         self.valueLabel.setText(str(self.raw_value))
-        
+
         self.update()
 
     def setMinValue(self, min_value):
