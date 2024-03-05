@@ -12,18 +12,23 @@ class BarGauge(QWidget):
 
         super().__init__(parent)
 
-        # Progress bar
-        self.bar = QProgressBar(parent)
-        self.bar.setGeometry(110, 126, 51, 301)
-        self.bar.setOrientation(Qt.Vertical)
-
-        self.valueLabel = QLabel(parent)
-        self.valueLabel.setGeometry(25, 425, 221, 61)
-
         self.minValue = 0.0
         self.maxValue = 100.0
         self.raw_value = self.minValue
         self.value = self.minValue
+
+        # Progress bar
+        self.bar = QProgressBar(parent)
+        self.bar.setGeometry(150, 126, 51, 301)
+        self.bar.setOrientation(Qt.Vertical)
+        self.bar.setRange(int(self.minValue), int(self.maxValue))
+
+        # Value label
+        self.valueLabel = QLabel(parent)
+        self.valueLabel.setGeometry(65, 425, 221, 61)
+        self.valueLabel.setAlignment(Qt.AlignCenter)
+        self.valueLabel.setStyleSheet("QLabel{font-size: 25pt;}")
+        self.valueLabel.setText('0.0')
 
     def updateValue(self, value: float):
         # Updates the value that the gauge is indicating.
@@ -35,6 +40,8 @@ class BarGauge(QWidget):
         self.value = value
         self.bar.setValue(int(self.value))
         self.valueLabel.setText(str(self.raw_value))
+        
+        self.update()
 
     def setMinValue(self, min_value):
         # Modifies the minimum value of the gauge
@@ -47,6 +54,9 @@ class BarGauge(QWidget):
         else:
             self.minValue = min_value
 
+        self.bar.setRange(int(self.minValue), int(self.maxValue))
+        self.update()
+
     def setMaxValue(self, max_value):
         # Modifies the maximum value of the gauge
         # Args:
@@ -57,3 +67,6 @@ class BarGauge(QWidget):
             self.maxValue = self.minValue + 1
         else:
             self.maxValue = max_value
+
+        self.bar.setRange(int(self.minValue), int(self.maxValue))
+        self.update()
