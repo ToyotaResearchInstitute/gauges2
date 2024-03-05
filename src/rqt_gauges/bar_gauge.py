@@ -1,7 +1,5 @@
-import math
-
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QProgressBar, QWidget
+from PyQt5.QtWidgets import QWidget
 
 
 class BarGauge(QWidget):
@@ -57,4 +55,4 @@ class BarGauge(QWidget):
 
     def paintEvent(self, event):
         self.bar_gauge.setValue(self.value)
-        self.value_label.setText(str(raw_value / 100.0))
+        self.value_label.setText(str(self.raw_value / 100.0))
