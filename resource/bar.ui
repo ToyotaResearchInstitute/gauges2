@@ -256,7 +256,7 @@ p, li { white-space: pre-wrap; }
     <string>%f%</string>
    </property>
   </widget> -->
-  <widget class="QLabel" name="value_label">
+  <!-- <widget class="QLabel" name="value_label">
    <property name="geometry">
     <rect>
      <x>25</x>
@@ -276,7 +276,7 @@ p, li { white-space: pre-wrap; }
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
-  </widget>
+  </widget> -->
 
   <widget class="Line" name="line_2">
    <property name="geometry">

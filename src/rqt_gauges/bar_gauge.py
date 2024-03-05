@@ -1,30 +1,31 @@
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QProgressBar, QWidget
+from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtWidgets import QLabel, QProgressBar, QWidget
 
 
 class BarGauge(QWidget):
 
     updateValueSignal = pyqtSignal(float)
 
-    def __init__(self, node):
+    def __init__(self, parent):
         # Constructor method of the class, initializes all the variables needed to create
         # the gauge.
 
-        super().__init__()
+        super().__init__(parent)
 
         # Progress bar
-        self.bar_gauge = QProgressBar(self)
-        self.bar_gauge.setGeometry(110, 126, 51, 301)
+        self.bar = QProgressBar(parent)
+        self.bar.setGeometry(110, 126, 51, 301)
+        self.bar.setOrientation(Qt.Vertical)
+
+        self.valueLabel = QLabel(parent)
+        self.valueLabel.setGeometry(25, 425, 221, 61)
 
         self.minValue = 0.0
-        self.maxValue = 1.0
+        self.maxValue = 100.0
         self.raw_value = self.minValue
         self.value = self.minValue
 
-        self.show()
-
     def updateValue(self, value: float):
-        print('UpdateValue()', value)
         # Updates the value that the gauge is indicating.
         # Args:
         #   value: Value to update the gauge with.
@@ -32,9 +33,8 @@ class BarGauge(QWidget):
         value = max(value, self.minValue)
         value = min(value, self.maxValue)
         self.value = value
-        self.bar_gauge.setValue(int(self.value * 100))
-        # self.value_label.setText(str(self.raw_value))
-        self.update()
+        self.bar.setValue(int(self.value))
+        self.valueLabel.setText(str(self.raw_value))
 
     def setMinValue(self, min_value):
         # Modifies the minimum value of the gauge
@@ -47,8 +47,6 @@ class BarGauge(QWidget):
         else:
             self.minValue = min_value
 
-        self.update()
-
     def setMaxValue(self, max_value):
         # Modifies the maximum value of the gauge
         # Args:
@@ -59,10 +57,3 @@ class BarGauge(QWidget):
             self.maxValue = self.minValue + 1
         else:
             self.maxValue = max_value
-
-        self.update()
-
-    def paintEvent(self, event):
-        print('paintEvent()', self.value, ' ', self.raw_value)
-        self.bar_gauge.setValue(int(self.value * 100))
-        # self.value_label.setText(str(self.raw_value))
