@@ -408,6 +408,7 @@ class DialGauge(QWidget):
         self.rescale_method()
 
     def paintEvent(self, event):
+        print('paintEvent()')
 
         self.draw_outer_circle()
         # Colored pie area

@@ -21,6 +21,8 @@ class BarGauge(QWidget):
         self.raw_value = self.minValue
         self.value = self.minValue
 
+        self.show()
+
     def updateValue(self, value: float):
         print('UpdateValue()', value)
         # Updates the value that the gauge is indicating.
@@ -30,8 +32,8 @@ class BarGauge(QWidget):
         value = max(value, self.minValue)
         value = min(value, self.maxValue)
         self.value = value
-        self.bar_gauge.setValue(self.value)
-        self.value_label.setText(str(self.raw_value))
+        self.bar_gauge.setValue(int(self.value * 100))
+        # self.value_label.setText(str(self.raw_value))
         self.update()
 
     def setMinValue(self, min_value):
@@ -62,5 +64,5 @@ class BarGauge(QWidget):
 
     def paintEvent(self, event):
         print('paintEvent()', self.value, ' ', self.raw_value)
-        self.bar_gauge.setValue(self.value)
-        self.value_label.setText(str(self.raw_value))
+        self.bar_gauge.setValue(int(self.value * 100))
+        # self.value_label.setText(str(self.raw_value))
