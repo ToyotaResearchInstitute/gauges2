@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>250</width>
+    <width>300</width>
     <height>550</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>250</width>
+    <width>300</width>
     <height>550</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>250</width>
+    <width>300</width>
     <height>550</height>
    </size>
   </property>
@@ -31,8 +31,8 @@
   <widget class="QLabel" name="min_value_label">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>470</y>
+     <x>10</x>
+     <y>490</y>
      <width>81</width>
      <height>31</height>
     </rect>
@@ -49,8 +49,8 @@
   <widget class="QTextEdit" name="min_value">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>470</y>
+     <x>90</x>
+     <y>490</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -69,8 +69,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QTextEdit" name="max_value">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>470</y>
+     <x>230</x>
+     <y>490</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -98,10 +98,10 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="max_value_label">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>476</y>
+     <x>150</x>
+     <y>490</y>
      <width>81</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -167,7 +167,7 @@ p, li { white-space: pre-wrap; }
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QProgressBar" name="bar_gauge">
+<!--   <widget class="QProgressBar" name="bar_gauge">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -255,12 +255,12 @@ p, li { white-space: pre-wrap; }
    <property name="format">
     <string>%f%</string>
    </property>
-  </widget>
+  </widget> -->
   <widget class="QLabel" name="value_label">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>436</y>
+     <x>25</x>
+     <y>425</y>
      <width>221</width>
      <height>61</height>
     </rect>

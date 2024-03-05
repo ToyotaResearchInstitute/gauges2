@@ -1,5 +1,5 @@
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QProgressBar, QWidget
 
 
 class BarGauge(QWidget):
@@ -12,12 +12,17 @@ class BarGauge(QWidget):
 
         super().__init__()
 
-        self.minValue = 0
-        self.maxValue = 1
+        # Progress bar
+        self.bar_gauge = QProgressBar(self)
+        self.bar_gauge.setGeometry(110, 126, 51, 301)
+
+        self.minValue = 0.0
+        self.maxValue = 1.0
         self.raw_value = self.minValue
         self.value = self.minValue
 
     def updateValue(self, value: float):
+        print('UpdateValue()', value)
         # Updates the value that the gauge is indicating.
         # Args:
         #   value: Value to update the gauge with.
@@ -25,7 +30,9 @@ class BarGauge(QWidget):
         value = max(value, self.minValue)
         value = min(value, self.maxValue)
         self.value = value
-        self.repaint()
+        self.bar_gauge.setValue(self.value)
+        self.value_label.setText(str(self.raw_value))
+        self.update()
 
     def setMinValue(self, min_value):
         # Modifies the minimum value of the gauge
@@ -54,5 +61,6 @@ class BarGauge(QWidget):
         self.update()
 
     def paintEvent(self, event):
+        print('paintEvent()', self.value, ' ', self.raw_value)
         self.bar_gauge.setValue(self.value)
-        self.value_label.setText(str(self.raw_value / 100.0))
+        self.value_label.setText(str(self.raw_value))
