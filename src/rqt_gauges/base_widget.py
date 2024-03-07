@@ -42,6 +42,12 @@ class BaseWidget(QWidget):
         except AttributeError:
             print("obj does not have attribute 'minValue'")
 
+        try:
+            getattr(self.gauge, 'units')
+            self.units.textChanged.connect(self.updateUnits)
+        except AttributeError:
+            pass
+
         # Signals Connection
         self.subscribe_button.pressed.connect(self.updateSubscription)
         self.gauge.updateValueSignal.connect(self.updateValue)
@@ -78,6 +84,11 @@ class BaseWidget(QWidget):
     @pyqtSlot(float)
     def updateValue(self, value):
         self.gauge.updateValue(value)
+
+    @pyqtSlot()
+    def updateUnits(self):
+        self.gauge.units = self.units.toPlainText()
+        self.gauge.update()
 
     @pyqtSlot()
     def updateSubscription(self):

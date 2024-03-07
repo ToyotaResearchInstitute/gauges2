@@ -31,8 +31,8 @@
   <widget class="QLabel" name="min_value_label">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>460</y>
+     <x>30</x>
+     <y>470</y>
      <width>81</width>
      <height>31</height>
     </rect>
@@ -49,8 +49,8 @@
   <widget class="QTextEdit" name="min_value">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>460</y>
+     <x>110</x>
+     <y>470</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -60,7 +60,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;-45&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="placeholderText">
     <string/>
@@ -72,8 +72,8 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="geometry">
     <rect>
-     <x>272</x>
-     <y>460</y>
+     <x>260</x>
+     <y>470</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -101,10 +101,10 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="max_value_label">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>460</y>
+     <x>170</x>
+     <y>476</y>
      <width>81</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
