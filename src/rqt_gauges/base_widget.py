@@ -24,23 +24,21 @@ class BaseWidget(QWidget):
         self._topic_completer.update_topics(self.node)
         self.topic_to_subscribe.setCompleter(self._topic_completer)
 
-        # Objects Properties
-        self.max_value.setAlignment(Qt.AlignCenter)
-        self.min_value.setAlignment(Qt.AlignCenter)
-
         try:
             getattr(self.gauge, 'maxValue')
+            self.max_value.setAlignment(Qt.AlignCenter)
             self.max_value.setPlaceholderText(str(self.gauge.maxValue))
             self.max_value.textChanged.connect(self.updateMaxValue)
         except AttributeError:
-            print("obj does not have attribute 'maxValue'")
+            pass
 
         try:
             getattr(self.gauge, 'minValue')
+            self.min_value.setAlignment(Qt.AlignCenter)
             self.min_value.setPlaceholderText(str(self.gauge.minValue))
             self.min_value.textChanged.connect(self.updateMinValue)
         except AttributeError:
-            print("obj does not have attribute 'minValue'")
+            pass
 
         try:
             getattr(self.gauge, 'units')
@@ -67,19 +65,19 @@ class BaseWidget(QWidget):
 
     @pyqtSlot()
     def updateMinValue(self):
-        new_min_value = self.min_value.toPlainText()
-        if new_min_value.isnumeric():
-            self.gauge.setMinValue(int(new_min_value))
-        else:
-            self.gauge.setMinValue(0)
+        try:
+            new_min_value = int(self.min_value.toPlainText())
+            self.gauge.setMinValue(new_min_value)
+        except ValueError:
+            pass
 
     @pyqtSlot()
     def updateMaxValue(self):
-        new_max_value = self.max_value.toPlainText()
-        if new_max_value.isnumeric():
-            self.gauge.setMaxValue(int(new_max_value))
-        else:
-            self.gauge.setMaxValue(180)
+        try:
+            new_max_value = int(self.max_value.toPlainText())
+            self.gauge.setMaxValue(new_max_value)
+        except ValueError:
+            pass
 
     @pyqtSlot(float)
     def updateValue(self, value):
