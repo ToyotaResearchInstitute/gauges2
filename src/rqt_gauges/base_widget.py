@@ -1,6 +1,3 @@
-import os
-
-from ament_index_python.resources import get_resource
 from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtWidgets import QWidget
 from python_qt_binding import loadUi
@@ -10,18 +7,16 @@ from rqt_py_common.topic_completer import TopicCompleter
 from .utils import generate_field_evals, get_topic_type
 
 
-class DialWidget(QWidget):
+class BaseWidget(QWidget):
 
-    def __init__(self, node):
+    def __init__(self, node, name, ui_path):
         super().__init__()
-        self.setObjectName('Dial_widget')
+        self.setObjectName(name)
 
         self.node = node
         self.sub = None
 
-        _, package_path = get_resource('packages', 'rqt_gauges')
-        ui_file = os.path.join(package_path, 'share', 'rqt_gauges', 'resource', 'dial.ui')
-        loadUi(ui_file, self)
+        loadUi(ui_path, self)
 
         self.topic_to_subscribe.setNode(self.node)
 
@@ -29,19 +24,31 @@ class DialWidget(QWidget):
         self._topic_completer.update_topics(self.node)
         self.topic_to_subscribe.setCompleter(self._topic_completer)
 
-        # Objects Properties
-        self.max_value.setAlignment(Qt.AlignCenter)
-        self.min_value.setAlignment(Qt.AlignCenter)
+        try:
+            getattr(self.gauge, 'maxValue')
+            self.max_value.setAlignment(Qt.AlignCenter)
+            self.max_value.setPlaceholderText(str(self.gauge.maxValue))
+            self.max_value.textChanged.connect(self.updateMaxValue)
+        except AttributeError:
+            pass
 
-        self.max_value.setPlaceholderText(str(self.dial_gauge.maxValue))
-        self.min_value.setPlaceholderText(str(self.dial_gauge.minValue))
+        try:
+            getattr(self.gauge, 'minValue')
+            self.min_value.setAlignment(Qt.AlignCenter)
+            self.min_value.setPlaceholderText(str(self.gauge.minValue))
+            self.min_value.textChanged.connect(self.updateMinValue)
+        except AttributeError:
+            pass
+
+        try:
+            getattr(self.gauge, 'units')
+            self.units.textChanged.connect(self.updateUnits)
+        except AttributeError:
+            pass
 
         # Signals Connection
-        self.min_value.textChanged.connect(self.updateMinValue)
-        self.max_value.textChanged.connect(self.updateMaxValue)
-        self.units.currentTextChanged.connect(self.updateUnits)
         self.subscribe_button.pressed.connect(self.updateSubscription)
-        self.dial_gauge.updateValueSignal.connect(self.updateValue)
+        self.gauge.updateValueSignal.connect(self.updateValue)
 
     def dragEnterEvent(self, event):
         event.accept()
@@ -58,28 +65,28 @@ class DialWidget(QWidget):
 
     @pyqtSlot()
     def updateMinValue(self):
-        new_min_value = self.min_value.toPlainText()
-        if new_min_value.isnumeric():
-            self.dial_gauge.setMinValue(int(new_min_value))
-        else:
-            self.dial_gauge.setMinValue(0)
+        try:
+            new_min_value = int(self.min_value.toPlainText())
+            self.gauge.setMinValue(new_min_value)
+        except ValueError:
+            pass
 
     @pyqtSlot()
     def updateMaxValue(self):
-        new_max_value = self.max_value.toPlainText()
-        if new_max_value.isnumeric():
-            self.dial_gauge.setMaxValue(int(new_max_value))
-        else:
-            self.dial_gauge.setMaxValue(180)
+        try:
+            new_max_value = int(self.max_value.toPlainText())
+            self.gauge.setMaxValue(new_max_value)
+        except ValueError:
+            pass
 
     @pyqtSlot(float)
     def updateValue(self, value):
-        self.dial_gauge.updateValue(value)
+        self.gauge.updateValue(value)
 
-    @pyqtSlot(str)
-    def updateUnits(self, new_units):
-        self.dial_gauge.units = new_units
-        self.dial_gauge.update()
+    @pyqtSlot()
+    def updateUnits(self):
+        self.gauge.units = self.units.toPlainText()
+        self.gauge.update()
 
     @pyqtSlot()
     def updateSubscription(self):
@@ -96,17 +103,17 @@ class DialWidget(QWidget):
             self.sub = self.node.create_subscription(
                 data_class,
                 topic_name,
-                self.dial_callback,
+                self.callback,
                 10)
 
-    def dial_callback(self, msg):
+    def callback(self, msg):
         value = msg
         for f in self.field_evals:
             value = f(value)
         if value is not None:
             if type(value) == int or type(value) == float or type(value) == str:
-                self.dial_gauge.updateValueSignal.emit(float(value))
+                self.gauge.updateValueSignal.emit(float(value))
             else:
-                self.dial_gauge.updateValueSignal.emit(self.dial_gauge.minValue)
+                self.gauge.updateValueSignal.emit(self.gauge.minValue)
         else:
-            self.dial_gauge.updateValueSignal.emit(self.dial_gauge.minValue)
+            self.gauge.updateValueSignal.emit(self.gauge.minValue)

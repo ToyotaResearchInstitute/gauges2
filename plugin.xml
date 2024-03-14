@@ -29,7 +29,7 @@
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>
   </class>
-  <class name="BarGauge" type="rqt_gauges.bar_gauge.BarGauge" base_class_type="rqt_gui_py::Plugin">
+  <class name="Bar" type="rqt_gauges.bar.Bar" base_class_type="rqt_gui_py::Plugin">
     <description>
       A bar visualization tool.
     </description>
@@ -39,7 +39,7 @@
         <icon type="theme">folder</icon>
         <statustip>Plugins related to visualization.</statustip>
       </group>
-      <label>Bar gauge</label>
+      <label>Bar</label>
       <icon type="theme">utilities-system-monitor</icon>
       <statustip>Gauges visualization tool.</statustip>
     </qtgui>

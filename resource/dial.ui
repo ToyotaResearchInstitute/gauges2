@@ -150,7 +150,7 @@ p, li { white-space: pre-wrap; }
     <string>Topic:</string>
    </property>
   </widget>
-  <widget class="DialGauge" name="dial_gauge" native="true">
+  <widget class="DialGauge" name="gauge" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -181,7 +181,7 @@ p, li { white-space: pre-wrap; }
     <string>Units:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="units">
+  <widget class="QTextEdit" name="units">
    <property name="geometry">
     <rect>
      <x>370</x>
@@ -190,26 +190,6 @@ p, li { white-space: pre-wrap; }
      <height>31</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>Mph</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Km/h</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>m/s</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string/>
-    </property>
-   </item>
   </widget>
   <widget class="TopicQLineEdit" name="topic_to_subscribe">
    <property name="geometry">

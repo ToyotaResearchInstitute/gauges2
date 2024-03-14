@@ -35,7 +35,7 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>460</y>
+     <y>470</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -58,6 +58,24 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="placeholderText">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="max_value_label">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>476</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Max Value:</string>
    </property>
   </widget>
   <widget class="QPushButton" name="subscribe_button">
@@ -91,24 +109,6 @@ p, li { white-space: pre-wrap; }
     <string>Topic:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="max_value_label">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>466</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Angle:</string>
-   </property>
-  </widget>
   <widget class="TopicQLineEdit" name="topic_to_subscribe">
    <property name="geometry">
     <rect>
@@ -119,7 +119,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
   </widget>
-  <widget class="RotationalGauge" name="rotational_gauge" native="true">
+  <widget class="RotationalGauge" name="gauge" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>

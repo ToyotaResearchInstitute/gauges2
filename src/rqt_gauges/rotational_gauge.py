@@ -103,6 +103,11 @@ class RotationalGauge(QWidget):
         # Modifies the maximum value of the gauge
         # Args:
         #   max: Value to update the maximum value of the gauge.
+
+        # Sanity check: We only allow positive max values.
+        if max_value <= 0:
+            return
+
         if self.value > max_value:
             self.value = max_value
         if max_value <= self.minValue:

@@ -15,7 +15,7 @@ setup(
         ('share/' + package_name + '/resource',
             ['resource/rotational.ui']),
         ('share/' + package_name + '/resource',
-            ['resource/bar_gauge.ui']),
+            ['resource/bar.ui']),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name, ['plugin.xml']),
     ],
