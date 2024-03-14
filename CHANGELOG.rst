@@ -2,6 +2,11 @@
 Changelog for package rqt_gauges
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.3 (2024-03-14)
+------------------
+* Refactor using a base widget class (`#35 <https://github.com/ekumenlabs/gauges2//issues/35>`_)
+* Contributors: Carlos Agüero
+
 0.0.2 (2024-02-20)
 ------------------
 * Included build status (`#34 <https://github.com/ToyotaResearchInstitute/gauges2/issues/34>`_)
